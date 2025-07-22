@@ -1,8 +1,9 @@
-using VehicleManagementSystem.Application.Commands.AddTransport;
+using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Mappings;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Infrastructure.DbContext;
 using VehicleManagementSystem.Infrastructure.Repositories;
+using VehicleManagementSystem.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITransportRepository, TransportRepository>();
 
 
