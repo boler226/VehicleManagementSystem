@@ -12,6 +12,10 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
             _collection = context.GetCollection<TransportEntity>("Transports");
         }
 
+        public async Task<TransportEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
+            await _collection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
+
+
         public async Task<List<TransportEntity>?> GetAllsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
 
