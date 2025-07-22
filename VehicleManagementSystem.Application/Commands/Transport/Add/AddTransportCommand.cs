@@ -2,7 +2,8 @@
 using VehicleManagementSystem.Application.DTOs.Transport;
 using VehicleManagementSystem.Domain.Enums;
 
-namespace VehicleManagementSystem.Application.Commands.AddTransport {
+namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport
+{
     public record AddTransportCommand(
         string LicensePlate,
         string Brand,

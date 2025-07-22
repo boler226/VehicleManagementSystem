@@ -2,12 +2,14 @@
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
 
-namespace VehicleManagementSystem.Application.Commands.AddTransport
+namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport
 {
     public class AddTransportCommandHandler(
         ITransportRepository repository
-        ) : IRequestHandler<AddTransportCommand, Guid> {
-        public async Task<Guid> Handle(AddTransportCommand request, CancellationToken cancellationToken) {
+        ) : IRequestHandler<AddTransportCommand, Guid>
+    {
+        public async Task<Guid> Handle(AddTransportCommand request, CancellationToken cancellationToken)
+        {
             var entity = new TransportEntity {
                 Id = Guid.NewGuid(),
                 LicensePlate = request.LicensePlate,
