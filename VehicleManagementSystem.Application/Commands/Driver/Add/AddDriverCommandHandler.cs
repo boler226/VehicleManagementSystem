@@ -7,10 +7,8 @@ namespace VehicleManagementSystem.Application.Commands.Driver.Add {
         IUnitOfWork unitOfWork
         ) : IRequestHandler<AddDriverCommand, Guid> {
         public async Task<Guid> Handle(AddDriverCommand request, CancellationToken cancellationToken) {
-            var team = await unitOfWork.Teams.GetByIdAsync(request.TeamId, cancellationToken);
-
-            if (team is null)
-                throw new Exception("Team not found");
+            var team = await unitOfWork.Teams.GetByIdAsync(request.TeamId, cancellationToken)
+                ?? throw new Exception("Team not found");
 
             var entity = new DriverEntity {
                 Id = Guid.NewGuid(),
