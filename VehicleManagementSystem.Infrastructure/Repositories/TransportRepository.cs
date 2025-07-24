@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 using VehicleManagementSystem.Domain.Entities;
-using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.DbContext;
 
 namespace VehicleManagementSystem.Infrastructure.Repositories
@@ -16,11 +16,10 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
             await _collection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
 
 
-        public async Task<List<TransportEntity>?> GetAllsync(CancellationToken cancellationToken) =>
+        public async Task<List<TransportEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
 
         public async Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken) {
-            var filter = Builders<TransportEntity>.Filter.Eq(t => t.Id, id);
             var projection = Builders<TransportEntity>.Projection.Expression(t => new TransportEntity {
                 Id = t.Id,
                 LicensePlate = t.LicensePlate,
@@ -36,23 +35,19 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
                     .ToList()
             });
 
-            var pipeline = _collection.Find(filter).Project(projection);
+            var pipeline = _collection.Find(t => t.Id == id).Project(projection);
 
             return await pipeline.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public async Task AddAsync(TransportEntity transport, CancellationToken cancellationToken) {
+        public async Task AddAsync(TransportEntity transport, CancellationToken cancellationToken) =>
             await _collection.InsertOneAsync(transport, cancellationToken: cancellationToken);
-        }
+        
 
-        public async Task UpdateAsync(TransportEntity transport, CancellationToken cancellationToken) {
-            var filter = Builders<TransportEntity>.Filter.Eq(t => t.Id, transport.Id);
-            await _collection.ReplaceOneAsync(filter, transport, cancellationToken: cancellationToken);
-        }
+        public async Task UpdateAsync(TransportEntity transport, CancellationToken cancellationToken) =>
+            await _collection.ReplaceOneAsync(t => t.Id == transport.Id, transport, cancellationToken: cancellationToken);
 
-        public async Task DeleteAsync(TransportEntity transport, CancellationToken cancellationToken) {
-            var filter = Builders<TransportEntity>.Filter.Eq(t => t.Id, transport.Id);
-            await _collection.DeleteOneAsync(filter, cancellationToken: cancellationToken);
-        }
+        public async Task DeleteAsync(TransportEntity transport, CancellationToken cancellationToken) =>
+            await _collection.DeleteOneAsync(t => t.Id == transport.Id, cancellationToken: cancellationToken);
     }
 }
