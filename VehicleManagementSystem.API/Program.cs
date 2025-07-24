@@ -1,6 +1,7 @@
 using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Mappings;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.DbContext;
 using VehicleManagementSystem.Infrastructure.Repositories;
 using VehicleManagementSystem.Infrastructure.UnitOfWork;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDriverRepository, DriverRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITransportRepository, TransportRepository>();
+builder.Services.AddScoped<IDriverTransportRepository, DriverTransportRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(TransportMappingProfile).Assembly);

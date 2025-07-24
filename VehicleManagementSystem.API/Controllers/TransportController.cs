@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Commands.Transport.DeleteTransport;
 using VehicleManagementSystem.Application.Commands.Transport.Update;
-using VehicleManagementSystem.Application.Queries.GetAllTransports;
+using VehicleManagementSystem.Application.Queries.Transport.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers
 {
