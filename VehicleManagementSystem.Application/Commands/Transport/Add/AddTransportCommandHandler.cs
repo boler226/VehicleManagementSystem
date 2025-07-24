@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
-using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Domain.Interfaces.Repositories;
 
 namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport
 {
