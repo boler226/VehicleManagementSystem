@@ -1,9 +1,10 @@
 ﻿using MongoDB.Driver;
 using VehicleManagementSystem.Domain.Entities;
-using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.DbContext;
 
-namespace VehicleManagementSystem.Infrastructure.Repositories {
+namespace VehicleManagementSystem.Infrastructure.Repositories
+{
     public class TeamRepository : ITeamRepository {
         private readonly IMongoCollection<TeamEntity> _collection;
 
