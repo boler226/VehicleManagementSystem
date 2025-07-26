@@ -9,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.Transport.Update {
             var transport = await unitOfWork.Transports.GetByIdAsync(request.Id, cancellationToken)
                 ?? throw new Exception("Transport not found");
 
-            if (request.LicensePlate is not null)
+            if (!string.IsNullOrWhiteSpace(request.LicensePlate))
                 transport.LicensePlate = request.LicensePlate;
 
             if (request.Type.HasValue)
