@@ -7,5 +7,7 @@ namespace VehicleManagementSystem.Domain.Interfaces
         ITransportRepository Transports { get; } 
         ITeamRepository Teams { get; }
         IDriverTransportRepository DriverTransports { get; }
+        IPersonRepository Persons { get; }
+        ITechnicianRepository Technicians { get; }
     }
 }
