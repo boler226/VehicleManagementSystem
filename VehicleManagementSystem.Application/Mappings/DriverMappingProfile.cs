@@ -6,9 +6,9 @@ namespace VehicleManagementSystem.Application.Mappings {
     public class DriverMappingProfile : Profile {
         public DriverMappingProfile() {
             CreateMap<DriverEntity, DriverDto>()
-                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
-                .ForMember(dest => dest.VehicleCount, opt => opt.MapFrom(src => src.Vechicles.Count));
+                .ForMember(dest => dest.Team, opt => opt.MapFrom(src => src.Team));
 
+            CreateMap<DriverEntity, DriverShortDto>();
         }
     }
 }
