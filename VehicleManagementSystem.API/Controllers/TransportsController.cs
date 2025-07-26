@@ -9,7 +9,7 @@ namespace VehicleManagementSystem.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class TransportController(IMediator mediator) : ControllerBase {
+    public class TransportsController(IMediator mediator) : ControllerBase {
         [HttpGet]
         public async Task<IActionResult> GetAll() =>
             Ok(await mediator.Send(new GetAllTransportsQuery()));
