@@ -14,5 +14,17 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
 
         public async Task<TeamEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
             await _collection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
+
+        public async Task<List<TeamEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
+           await _collection.Find(_ => true).ToListAsync(cancellationToken);
+
+        public async Task AddAsync(TeamEntity team, CancellationToken cancellationToken) =>
+            await _collection.InsertOneAsync(team, cancellationToken: cancellationToken);
+
+        public async Task UpdateAsync(TeamEntity team, CancellationToken cancellationToken) =>
+            await _collection.ReplaceOneAsync(t => t.Id == team.Id, team, cancellationToken: cancellationToken);
+
+        public async Task DeleteAsync(TeamEntity team, CancellationToken cancellationToken) =>
+            await _collection.DeleteOneAsync(t =>t.Id == team.Id, cancellationToken: cancellationToken);
     }
 }
