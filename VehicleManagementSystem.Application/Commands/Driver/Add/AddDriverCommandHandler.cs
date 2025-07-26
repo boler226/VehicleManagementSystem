@@ -10,7 +10,7 @@ namespace VehicleManagementSystem.Application.Commands.Driver.Add {
             var team = await unitOfWork.Teams.GetByIdAsync(request.TeamId, cancellationToken)
                 ?? throw new Exception("Team not found");
 
-            var entity = new DriverEntity {
+            var driver = new DriverEntity {
                 Id = Guid.NewGuid(),
                 FullName = request.FullName,
                 LicenseNumber = request.LicenseNumber,
@@ -18,8 +18,9 @@ namespace VehicleManagementSystem.Application.Commands.Driver.Add {
                 Team = team
             };
 
-            await unitOfWork.Drivers.AddAsync(entity, cancellationToken);
-            return entity.Id;
+            await unitOfWork.Drivers.AddAsync(driver, cancellationToken);
+
+            return driver.Id;
         }
     }
 }

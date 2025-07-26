@@ -9,10 +9,10 @@ namespace VehicleManagementSystem.Application.Commands.Driver.Update {
             var driver = await unitOfWork.Drivers.GetByIdAsync(request.Id, cancellationToken)
                 ?? throw new Exception("Driver not found");
 
-            if (request.FullName is not null)
+            if (!string.IsNullOrWhiteSpace(request.FullName))
                 driver.FullName = request.FullName;
 
-            if (request.LicenseNumber is not null)
+            if (!string.IsNullOrWhiteSpace(request.LicenseNumber))
                 driver.LicenseNumber = request.LicenseNumber;
 
             if (request.TeamId.HasValue) {
