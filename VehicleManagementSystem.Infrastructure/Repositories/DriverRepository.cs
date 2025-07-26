@@ -15,6 +15,9 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
         public async Task<DriverEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
             await _collection.Find(d => d.Id == id).FirstOrDefaultAsync(cancellationToken);
 
+        public async Task<List<DriverEntity>?> GetAllByTeamIdAsync(Guid teamId, CancellationToken cancellationToken) =>
+            await _collection.Find(d => d.TeamId == teamId).ToListAsync(cancellationToken);
+
         public async Task<List<DriverEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
 
