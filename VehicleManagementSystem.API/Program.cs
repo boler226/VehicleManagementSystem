@@ -19,6 +19,7 @@ builder.Services.AddScoped<IDriverRepository, DriverRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITransportRepository, TransportRepository>();
 builder.Services.AddScoped<IDriverTransportRepository, DriverTransportRepository>();
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(TransportMappingProfile).Assembly);
