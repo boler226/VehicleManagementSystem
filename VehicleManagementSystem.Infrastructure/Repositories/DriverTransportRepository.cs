@@ -11,8 +11,14 @@ namespace VehicleManagementSystem.Infrastructure.Repositories {
             _collection = context.GetCollection<DriverTransportEntity>("DriverTransports");
         }
 
-        public async Task<DriverTransportEntity?> GetByDriverIdAsync(Guid driverId, CancellationToken cancellationToken) =>
-            await _collection.Find(d => d.DriverId == driverId).FirstOrDefaultAsync(cancellationToken);
+        public async Task<DriverTransportEntity?> GetByIdAsync(Guid driverId, Guid transportId, CancellationToken cancellationToken) => 
+            await _collection.Find(d => d.DriverId == driverId && d.TransportId == transportId).FirstOrDefaultAsync(cancellationToken);
+
+        public async Task<List<DriverTransportEntity>?> GetAllByDriverIdAsync(Guid driverId, CancellationToken cancellationToken) =>
+            await _collection.Find(d => d.DriverId == driverId).ToListAsync(cancellationToken);
+
+        public async Task<List<DriverTransportEntity>?> GetAllByTransportIdAsync(Guid transportId, CancellationToken cancellationToken) => 
+            await _collection.Find(d => d.TransportId == transportId).ToListAsync(cancellationToken);
 
         public async Task AddAsync(DriverTransportEntity driverTransport, CancellationToken cancellationToken) =>
             await _collection.InsertOneAsync(driverTransport, cancellationToken: cancellationToken);
@@ -23,5 +29,7 @@ namespace VehicleManagementSystem.Infrastructure.Repositories {
         public async Task DeleteByTransportIdAsync(Guid transportId, CancellationToken cancellationToken) =>
             await _collection.DeleteManyAsync(d => d.TransportId == transportId, cancellationToken);
 
+        public async Task DeleteByIdAsync(Guid driverId, Guid transportId, CancellationToken cancellationToken) =>
+            await _collection.DeleteOneAsync(d => d.DriverId == driverId && d.TransportId == transportId, cancellationToken);
     }
 }
