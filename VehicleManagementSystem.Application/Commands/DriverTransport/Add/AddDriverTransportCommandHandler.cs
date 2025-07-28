@@ -5,8 +5,8 @@ using VehicleManagementSystem.Domain.Interfaces;
 namespace VehicleManagementSystem.Application.Commands.DriverTransport.Add {
     public class AddDriverTransportCommandHandler(
         IUnitOfWork unitOfWork
-        ) : IRequestHandler<AddDriverTransportCommand> {
-        public async Task Handle(AddDriverTransportCommand request, CancellationToken cancellationToken) {
+        ) : IRequestHandler<AddDriverTransportCommand, Unit> {
+        public async Task<Unit> Handle(AddDriverTransportCommand request, CancellationToken cancellationToken) {
             var driver = await unitOfWork.Drivers.GetByIdAsync(request.DriverId, cancellationToken)
                          ?? throw new Exception("Driver not found");
 
@@ -21,6 +21,8 @@ namespace VehicleManagementSystem.Application.Commands.DriverTransport.Add {
             };
 
             await unitOfWork.DriverTransports.AddAsync(driverTransport, cancellationToken);
+
+            return Unit.Value;
         }
     }
 }
