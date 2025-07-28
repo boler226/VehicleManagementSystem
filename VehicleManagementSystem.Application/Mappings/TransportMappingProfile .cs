@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VehicleManagementSystem.Application.DTOs;
+using VehicleManagementSystem.Application.DTOs.Driver;
 using VehicleManagementSystem.Application.DTOs.RouteAssignment;
 using VehicleManagementSystem.Application.DTOs.Transport;
 using VehicleManagementSystem.Domain.Entities;
@@ -21,6 +22,15 @@ namespace VehicleManagementSystem.Application.Mappings
 
             CreateMap<RouteAssignmentEntity, RouteAssignmentDto>();
             CreateMap<RouteAssignmentEntity, RouteAssignmentSimpleDto>();
+
+            CreateMap<TransportEntity, TransportShortDto>();
+
+            CreateMap<DriverTransportEntity, DriverShortDto>()
+                .ConstructUsing(src => new DriverShortDto {
+                    Id = src.Driver.Id,
+                    FullName = src.Driver.FullName,
+                    LicenseNumber = src.Driver.LicenseNumber
+                });
         }
     }
 }
