@@ -12,6 +12,11 @@ namespace VehicleManagementSystem.Application.Queries.Driver.GetAll {
             var drivers = await unitOfWork.Drivers.GetAllAsync(cancellationToken)
                 ?? throw new Exception("Drivers does not exist");
 
+            foreach (var driver in drivers) {
+                var driverTransports = await unitOfWork.DriverTransports.GetAllByDriverIdAsync(driver.Id, cancellationToken);
+                driver.Vechicles = driverTransports.ToList();
+            }
+
             return mapper.Map<List<DriverDto>>(drivers);
         }
     }

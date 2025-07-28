@@ -1,21 +1,26 @@
 ﻿using AutoMapper;
 using MediatR;
 using VehicleManagementSystem.Application.DTOs.Transport;
-using VehicleManagementSystem.Domain.Interfaces.Repositories;
+using VehicleManagementSystem.Domain.Interfaces;
 
 namespace VehicleManagementSystem.Application.Queries.Transport.GetAll
 {
     public class GetAllTransportsQueryHandler(
-        ITransportRepository repository,
+        IUnitOfWork unitOfWork,
         IMapper mapper
         ) : IRequestHandler<GetAllTransportsQuery, List<TransportDto>>
     {
         public async Task<List<TransportDto>> Handle(GetAllTransportsQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetAllAsync(cancellationToken)
-                ?? throw new Exception("Transports does not exist");
+            var transports = await unitOfWork.Transports.GetAllAsync(cancellationToken)
+                             ?? throw new Exception("Transports does not exist");
 
-            return mapper.Map<List<TransportDto>>(result);
+            foreach (var transport in transports) {
+                var transportDrivers = await unitOfWork.DriverTransports.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                transport.Drivers = transportDrivers.ToList();
+            }
+
+            return mapper.Map<List<TransportDto>>(transports);
         }
     }
 }
