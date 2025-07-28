@@ -8,6 +8,6 @@ namespace VehicleManagementSystem.Application.DTOs.Transport
         public string LicensePlate { get; set; } = null!;
         public string Brand { get; set; } = null!;
         public string Model { get; set; } = null!;
-        public List<RouteAssignmentDto> Routes { get; set; } = new List<RouteAssignmentDto>();
+        public List<RouteAssignmentDto> Routes { get; set; } = new();
     }
 }
