@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 
 namespace VehicleManagementSystem.Domain.Entities {
+    [BsonIgnoreExtraElements]
     public class DriverTransportEntity {
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid DriverId { get; set; }
