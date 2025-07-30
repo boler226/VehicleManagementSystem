@@ -1,4 +1,5 @@
-﻿using VehicleManagementSystem.Application.DTOs.Team;
+﻿using VehicleManagementSystem.Application.DTOs.RepairWork;
+using VehicleManagementSystem.Application.DTOs.Team;
 
 namespace VehicleManagementSystem.Application.DTOs.Technician {
     public class TechnicianDto {
@@ -6,6 +7,6 @@ namespace VehicleManagementSystem.Application.DTOs.Technician {
         public string FullName { get; set; } = null!;
         public string Specialty { get; set; } = null!;
         public TeamShortDto Team { get; set; } = null!;
-        // public List<RepairWorkDto>
+        public List<RepairWorkDto> RepairWorks { get; set; } = new();
     }
 }
