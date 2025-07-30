@@ -9,5 +9,7 @@ namespace VehicleManagementSystem.Domain.Interfaces
         IDriverTransportRepository DriverTransports { get; }
         IPersonRepository Persons { get; }
         ITechnicianRepository Technicians { get; }
+        ITransportRepairRepository TransportRepairs { get; }
+        IRepairWorkRepository RepairWorks { get; }
     }
 }
