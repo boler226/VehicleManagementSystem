@@ -2,8 +2,7 @@
 
 namespace VehicleManagementSystem.Domain.Interfaces.Repositories
 {
-    public interface ITransportRepository
-    {
+    public interface ITransportRepository {
         Task<TransportEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<List<TransportEntity>?> GetAllAsync(CancellationToken cancellationToken);
         Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken);

@@ -2,9 +2,9 @@
 
 namespace VehicleManagementSystem.Domain.Interfaces.Repositories
 {
-    public interface ITeamRepository
-    {
+    public interface ITeamRepository {
         Task<TeamEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<TeamEntity?> GetByPersonIdAsync(Guid personId, CancellationToken cancellationToken);
         Task<List<TeamEntity>?> GetAllAsync(CancellationToken cancellationToken);
         Task AddAsync(TeamEntity team, CancellationToken cancellationToken);
         Task UpdateAsync(TeamEntity team, CancellationToken cancellationToken);
