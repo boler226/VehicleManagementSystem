@@ -1,0 +1,25 @@
+﻿using AutoMapper;
+using MediatR;
+using VehicleManagementSystem.Application.DTOs.TransportRepair;
+using VehicleManagementSystem.Domain.Interfaces;
+
+namespace VehicleManagementSystem.Application.Queries.TransportRepair.GetAll {
+    public class GetAllTransportRepairsQueryHandler(
+        IUnitOfWork unitOfWork,
+        IMapper mapper
+        ) : IRequestHandler<GetAllTransportRepairsQuery, List<TransportRepairDto>> {
+        public async Task<List<TransportRepairDto>> Handle(GetAllTransportRepairsQuery request, CancellationToken cancellationToken) {
+            var repairs = await unitOfWork.TransportRepairs.GetAllAsync(cancellationToken)
+                          ?? throw new Exception("Transport repairs does not exist");
+
+            foreach (var repair in repairs ) {
+                var works = await unitOfWork.RepairWorks.GetAllByTechnicianIdAsync(repair.TransportId, cancellationToken);
+
+                if (works is not null) 
+                    repair.RepairWorks = works;
+            }
+
+            return mapper.Map<List<TransportRepairDto>>(repairs);
+        }
+    }
+}
