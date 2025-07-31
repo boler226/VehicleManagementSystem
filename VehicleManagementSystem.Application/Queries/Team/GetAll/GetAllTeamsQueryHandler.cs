@@ -12,9 +12,10 @@ namespace VehicleManagementSystem.Application.Queries.Team.GetAll {
             var teams = await unitOfWork.Teams.GetAllAsync(cancellationToken)
                         ?? throw new Exception("Teams does not exist");
 
-            foreach (var team in teams) {
-                team.Drivers = await unitOfWork.Drivers.GetAllByTeamIdAsync(team.Id, cancellationToken);
-            }
+            if (teams is not null) {
+                foreach (var team in teams)
+                    team.Drivers = await unitOfWork.Drivers.GetAllByTeamIdAsync(team.Id, cancellationToken);
+            }   
 
             return mapper.Map<List<TeamDto>>(teams);
         }
