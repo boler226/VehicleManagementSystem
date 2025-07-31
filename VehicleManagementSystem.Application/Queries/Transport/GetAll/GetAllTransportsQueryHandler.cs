@@ -17,7 +17,9 @@ namespace VehicleManagementSystem.Application.Queries.Transport.GetAll
 
             foreach (var transport in transports) {
                 var transportDrivers = await unitOfWork.DriverTransports.GetAllByTransportIdAsync(transport.Id, cancellationToken);
-                transport.Drivers = transportDrivers.ToList();
+
+                if (transportDrivers is not null) 
+                    transport.Drivers = transportDrivers.ToList();
             }
 
             return mapper.Map<List<TransportDto>>(transports);
