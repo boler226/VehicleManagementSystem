@@ -20,6 +20,11 @@ namespace VehicleManagementSystem.Application.Queries.Transport.GetAll
 
                 if (transportDrivers is not null) 
                     transport.Drivers = transportDrivers.ToList();
+
+                var assignments = await unitOfWork.RouteAssignments.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+
+                if (assignments is not null)
+                    transport.Assignments = assignments.ToList();
             }
 
             return mapper.Map<List<TransportDto>>(transports);
