@@ -11,5 +11,7 @@ namespace VehicleManagementSystem.Domain.Interfaces
         ITechnicianRepository Technicians { get; }
         ITransportRepairRepository TransportRepairs { get; }
         IRepairWorkRepository RepairWorks { get; }
+        IRouteRepository Routes { get; }
+        IRouteAssignmentRepository RouteAssignments { get; }
     }
 }

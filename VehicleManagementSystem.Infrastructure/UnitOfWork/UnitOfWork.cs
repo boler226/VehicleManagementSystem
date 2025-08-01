@@ -11,7 +11,9 @@ namespace VehicleManagementSystem.Infrastructure.UnitOfWork
         IPersonRepository personRepository,
         ITechnicianRepository technicianRepository,
         ITransportRepairRepository repairRepository,
-        IRepairWorkRepository repairWorkRepository
+        IRepairWorkRepository repairWorkRepository,
+        IRouteRepository routeRepository,
+        IRouteAssignmentRepository assignmentRepository
         ) : IUnitOfWork {
         public IDriverRepository Drivers => driverRepository;
         public ITransportRepository Transports => transportRepository;
@@ -21,5 +23,7 @@ namespace VehicleManagementSystem.Infrastructure.UnitOfWork
         public ITechnicianRepository Technicians => technicianRepository;
         public ITransportRepairRepository TransportRepairs => repairRepository;
         public IRepairWorkRepository RepairWorks => repairWorkRepository;
+        public IRouteRepository Routes => routeRepository;
+        public IRouteAssignmentRepository RouteAssignments => assignmentRepository;
     }
 }
