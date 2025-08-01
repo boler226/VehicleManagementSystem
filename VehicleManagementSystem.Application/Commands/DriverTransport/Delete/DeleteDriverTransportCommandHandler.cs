@@ -9,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.DriverTransport.Delete {
             var driverTransport = await unitOfWork.DriverTransports.GetByIdAsync(request.driverId, request.transportId, cancellationToken)
                                   ?? throw new Exception("DriverTransport does not exist");
 
-            await unitOfWork.DriverTransports.DeleteByIdAsync(request.driverId, request.transportId, cancellationToken);
+            await unitOfWork.DriverTransports.DeleteByIdAsync(driverTransport.DriverId, driverTransport.TransportId, cancellationToken);
 
             return Unit.Value;
         }
