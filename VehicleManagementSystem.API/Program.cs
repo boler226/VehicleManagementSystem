@@ -21,7 +21,8 @@ builder.Services.AddScoped<ITransportRepository, TransportRepository>();
 builder.Services.AddScoped<IDriverTransportRepository, DriverTransportRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<ITechnicianRepository, TechnicianRepository>();
-
+builder.Services.AddScoped<ITransportRepairRepository, TransportRepairRepository>();
+builder.Services.AddScoped<IRepairWorkRepository, RepairWorkRepository>();
 
 builder.Services.AddAutoMapper(typeof(TransportMappingProfile).Assembly);
 builder.Services.AddMediatR(cfg =>
