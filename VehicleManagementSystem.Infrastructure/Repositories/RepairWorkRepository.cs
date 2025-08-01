@@ -16,6 +16,10 @@ namespace VehicleManagementSystem.Infrastructure.Repositories {
 
         public async Task<List<RepairWorkEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
+
+        public async Task<List<RepairWorkEntity>?> GetAllByRepairIdAsync(Guid repairId, CancellationToken cancellationToken) =>
+            await _collection.Find(w => w.RepairId == repairId).ToListAsync(cancellationToken);
+
         public async Task<List<RepairWorkEntity>?> GetAllByTechnicianIdAsync(Guid technicianId, CancellationToken cancellationToken) =>
             await _collection.Find(w => w.TechnicianId == technicianId).ToListAsync(cancellationToken);
 
