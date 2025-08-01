@@ -7,6 +7,6 @@ namespace VehicleManagementSystem.Application.DTOs.Technician {
         public string FullName { get; set; } = null!;
         public string Specialty { get; set; } = null!;
         public TeamShortDto Team { get; set; } = null!;
-        public List<RepairWorkDto> RepairWorks { get; set; } = new();
+        public List<RepairWorkShortDto> RepairWorks { get; set; } = new();
     }
 }

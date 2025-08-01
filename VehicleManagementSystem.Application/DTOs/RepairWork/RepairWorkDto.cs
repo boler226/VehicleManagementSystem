@@ -6,7 +6,7 @@ namespace VehicleManagementSystem.Application.DTOs.RepairWork {
         public Guid Id { get; set; }
         public string PartName { get; set; } = null!;
         public string WorkDescription { get; set; } = null!;
-        public TechnicianDto Technician { get; set; } = null!;
+        public TechnicianShortDto Technician { get; set; } = null!;
         public TransportRepairShortDto Repair { get; set; } = null!;
     }
 }
