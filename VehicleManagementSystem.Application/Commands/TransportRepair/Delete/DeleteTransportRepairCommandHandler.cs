@@ -11,7 +11,7 @@ namespace VehicleManagementSystem.Application.Commands.TransportRepair.Delete {
 
             var works = await unitOfWork.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
 
-            if (works is not null) {
+            if (works is not null && works.Any()) {
                 foreach (var work in works ) 
                     await unitOfWork.RepairWorks.DeleteAsync(work, cancellationToken);
             }
