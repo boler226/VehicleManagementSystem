@@ -18,7 +18,7 @@ namespace VehicleManagementSystem.Domain.Entities
         public DateTime? WriteOffDate { get; set; }
 
         public ICollection<DriverTransportEntity> Drivers { get; set; } = new List<DriverTransportEntity>();
-        public ICollection<RouteAssignmentEntity> RouteAssignments { get; set; } = new List<RouteAssignmentEntity>();
+        public ICollection<RouteAssignmentEntity> Assignments { get; set; } = new List<RouteAssignmentEntity>();
         public ICollection<TransportRepairEntity> Repairs { get; set; } = new List<TransportRepairEntity>();
         public ICollection<MileageRecordEntity> Mileages { get; set; } = new List<MileageRecordEntity>();
     }

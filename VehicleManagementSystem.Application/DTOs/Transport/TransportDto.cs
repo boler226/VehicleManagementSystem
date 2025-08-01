@@ -1,4 +1,5 @@
 ﻿using VehicleManagementSystem.Application.DTOs.Driver;
+using VehicleManagementSystem.Application.DTOs.RouteAssignment;
 using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.Application.DTOs.Transport
@@ -15,6 +16,6 @@ namespace VehicleManagementSystem.Application.DTOs.Transport
         public bool IsWrittenOff { get; set; }
         public DateTime? WriteOffDate { get; set; }
         public List<DriverShortDto>? Drivers { get; set; } = new();
-        public List<RouteAssignmentSimpleDto>? RouteAssignments { get; set; } = new();
+        public List<RouteAssignmentShortDto>? Assignments { get; set; } = new();
     }
 }

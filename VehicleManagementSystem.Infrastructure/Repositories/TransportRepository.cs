@@ -30,7 +30,7 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
                 LoadCapacity = t.LoadCapacity,
                 IsWrittenOff = t.IsWrittenOff,
                 WriteOffDate = t.WriteOffDate,
-                RouteAssignments = t.RouteAssignments
+                Assignments = t.Assignments
                     .Where(r => r.Date >= from && r.Date <= to)
                     .ToList()
             });
