@@ -10,10 +10,10 @@ namespace VehicleManagementSystem.Application.Queries.TransportRepair.GetAll {
         ) : IRequestHandler<GetAllTransportRepairsQuery, List<TransportRepairDto>> {
         public async Task<List<TransportRepairDto>> Handle(GetAllTransportRepairsQuery request, CancellationToken cancellationToken) {
             var repairs = await unitOfWork.TransportRepairs.GetAllAsync(cancellationToken)
-                          ?? throw new Exception("Transport repairs does not exist");
+                          ?? throw new Exception("Transport repairs does not exist"); 
 
             foreach (var repair in repairs ) {
-                var works = await unitOfWork.RepairWorks.GetAllByTechnicianIdAsync(repair.TransportId, cancellationToken);
+                var works = await unitOfWork.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
 
                 if (works is not null) 
                     repair.RepairWorks = works;

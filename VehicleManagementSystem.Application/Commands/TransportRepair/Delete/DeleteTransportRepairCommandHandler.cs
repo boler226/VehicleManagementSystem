@@ -9,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.TransportRepair.Delete {
             var repair = await unitOfWork.TransportRepairs.GetByIdAsync(request.Id, cancellationToken)
                          ?? throw new Exception("Repair not found");
 
-            var works = await unitOfWork.RepairWorks.GetAllByTechnicianIdAsync(repair.TransportId, cancellationToken);
+            var works = await unitOfWork.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
 
             if (works is not null) {
                 foreach (var work in works ) 
