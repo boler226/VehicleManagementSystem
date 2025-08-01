@@ -27,7 +27,6 @@ namespace VehicleManagementSystem.Application.Commands.Person.Delete {
                     if (getId(team) == person.Id) {
                         clear(team);
                         await unitOfWork.Teams.UpdateAsync(team, cancellationToken);
-                        break;
                     }
                 }
             }
