@@ -17,6 +17,9 @@ namespace VehicleManagementSystem.Infrastructure.Repositories {
         public async Task<List<TransportRepairEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
 
+        public async Task<List<TransportRepairEntity>?> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken) =>
+            await _collection.Find(t => t.GarageObjectId == GarageId).ToListAsync(cancellationToken);
+
         public async Task AddAsync(TransportRepairEntity repair, CancellationToken cancellationToken) =>
             await _collection.InsertOneAsync(repair, cancellationToken: cancellationToken);
 

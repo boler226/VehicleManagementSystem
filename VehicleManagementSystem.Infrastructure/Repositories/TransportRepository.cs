@@ -15,9 +15,11 @@ namespace VehicleManagementSystem.Infrastructure.Repositories
         public async Task<TransportEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
             await _collection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
 
-
         public async Task<List<TransportEntity>?> GetAllAsync(CancellationToken cancellationToken) =>
             await _collection.Find(_ => true).ToListAsync(cancellationToken);
+
+        public async Task<List<TransportEntity>?> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken) =>
+            await _collection.Find(t => t.GarageObjectId == GarageId).ToListAsync(cancellationToken);
 
         public async Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken) {
             var projection = Builders<TransportEntity>.Projection.Expression(t => new TransportEntity {
