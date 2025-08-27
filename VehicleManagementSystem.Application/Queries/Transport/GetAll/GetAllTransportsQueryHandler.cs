@@ -25,6 +25,11 @@ namespace VehicleManagementSystem.Application.Queries.Transport.GetAll
 
                 if (assignments is not null)
                     transport.Assignments = assignments.ToList();
+
+                var milegeas = await unitOfWork.MileageRecords.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+
+                if(milegeas is not null) 
+                    transport.Mileages = milegeas.ToList();
             }
 
             return mapper.Map<List<TransportDto>>(transports);
