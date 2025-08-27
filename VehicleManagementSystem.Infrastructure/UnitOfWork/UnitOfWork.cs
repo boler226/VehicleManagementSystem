@@ -14,7 +14,8 @@ namespace VehicleManagementSystem.Infrastructure.UnitOfWork
         IRepairWorkRepository repairWorkRepository,
         IRouteRepository routeRepository,
         IRouteAssignmentRepository assignmentRepository,
-        IMileageRecordRepository recordRepository
+        IMileageRecordRepository recordRepository,
+        IGarageObjectRepository objectRepository
         ) : IUnitOfWork {
         public IDriverRepository Drivers => driverRepository;
         public ITransportRepository Transports => transportRepository;
@@ -27,5 +28,6 @@ namespace VehicleManagementSystem.Infrastructure.UnitOfWork
         public IRouteRepository Routes => routeRepository;
         public IRouteAssignmentRepository RouteAssignments => assignmentRepository;
         public IMileageRecordRepository MileageRecords => recordRepository;
+        public IGarageObjectRepository GarageObjects => objectRepository;
     }
 }
