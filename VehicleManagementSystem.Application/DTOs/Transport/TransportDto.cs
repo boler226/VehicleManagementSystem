@@ -1,4 +1,5 @@
 ﻿using VehicleManagementSystem.Application.DTOs.Driver;
+using VehicleManagementSystem.Application.DTOs.GarageObject;
 using VehicleManagementSystem.Application.DTOs.MileageRecord;
 using VehicleManagementSystem.Application.DTOs.RouteAssignment;
 using VehicleManagementSystem.Domain.Enums;
@@ -16,6 +17,9 @@ namespace VehicleManagementSystem.Application.DTOs.Transport
         public double? LoadCapacity { get; set; }
         public bool IsWrittenOff { get; set; }
         public DateTime? WriteOffDate { get; set; }
+
+        public GarageObjectShortDto? GarageObject { get; set; }
+
         public List<DriverShortDto>? Drivers { get; set; } = new();
         public List<RouteAssignmentShortDto>? Assignments { get; set; } = new();
         public List<MileageRecordShortDto>? Mileages { get; set; } = new();
