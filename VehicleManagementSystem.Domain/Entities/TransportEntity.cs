@@ -17,6 +17,10 @@ namespace VehicleManagementSystem.Domain.Entities
         public bool IsWrittenOff { get; set; }
         public DateTime? WriteOffDate { get; set; }
 
+        [BsonGuidRepresentation(GuidRepresentation.Standard)]
+        public Guid? GarageObjectId { get; set; }
+        public GarageObjectEntity? GarageObject { get; set; }
+
         public ICollection<DriverTransportEntity> Drivers { get; set; } = new List<DriverTransportEntity>();
         public ICollection<RouteAssignmentEntity> Assignments { get; set; } = new List<RouteAssignmentEntity>();
         public ICollection<TransportRepairEntity> Repairs { get; set; } = new List<TransportRepairEntity>();

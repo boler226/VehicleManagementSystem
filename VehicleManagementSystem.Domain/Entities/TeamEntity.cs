@@ -9,19 +9,19 @@ namespace VehicleManagementSystem.Domain.Entities {
 
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid? ForemanId { get; set; }
-        public PersonEntity? Foreman { get; set; } = null!;
+        public PersonEntity? Foreman { get; set; }
 
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid? MasterId { get; set; }
-        public PersonEntity? Master { get; set; } = null!;
+        public PersonEntity? Master { get; set; }
 
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid? SectionHeadId { get; set; } 
-        public PersonEntity? SectionHead { get; set; } = null!;
+        public PersonEntity? SectionHead { get; set; }
 
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid? WorkshopHeadId { get; set; }
-        public PersonEntity? WorkshopHead { get; set; } = null!;
+        public PersonEntity? WorkshopHead { get; set; }
 
         public ICollection<DriverEntity> Drivers { get; set; } = new List<DriverEntity>();
         public ICollection<TechnicianEntity> Technicians { get; set; } = new List<TechnicianEntity>();
