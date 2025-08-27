@@ -26,6 +26,7 @@ builder.Services.AddScoped<IRepairWorkRepository, RepairWorkRepository>();
 builder.Services.AddScoped<IRouteRepository, RouteRepository>();
 builder.Services.AddScoped<IRouteAssignmentRepository, RouteAssignmentRepository>();
 builder.Services.AddScoped<IMileageRecordRepository, MileageRecordRepository>();
+builder.Services.AddScoped<IGarageObjectRepository, GarageObjectRepository>();
 
 builder.Services.AddAutoMapper(typeof(TransportMappingProfile).Assembly);
 builder.Services.AddMediatR(cfg =>
