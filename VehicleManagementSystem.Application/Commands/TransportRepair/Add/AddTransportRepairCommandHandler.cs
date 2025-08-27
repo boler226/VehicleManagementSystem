@@ -18,6 +18,14 @@ namespace VehicleManagementSystem.Application.Commands.TransportRepair.Add {
                 Cost = request.Cost
             };
 
+            if (request.GarageId is not null) {
+                var garage = await unitOfWork.GarageObjects.GetByIdAsync(request.GarageId.Value, cancellationToken)
+                             ?? throw new Exception("Garage objects not found");
+
+                repair.GarageObject = garage;
+                repair.GarageObjectId = garage.Id;
+            }
+
             await unitOfWork.TransportRepairs.AddAsync(repair, cancellationToken);
 
             return repair.Id;
