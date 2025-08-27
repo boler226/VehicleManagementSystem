@@ -13,5 +13,6 @@ namespace VehicleManagementSystem.Domain.Interfaces
         IRepairWorkRepository RepairWorks { get; }
         IRouteRepository Routes { get; }
         IRouteAssignmentRepository RouteAssignments { get; }
+        IMileageRecordRepository MileageRecords { get; }
     }
 }
