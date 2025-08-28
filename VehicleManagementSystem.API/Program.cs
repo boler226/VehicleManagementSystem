@@ -1,6 +1,7 @@
 using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Mappings;
 using VehicleManagementSystem.Infrastructure.DbContext;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 using VehicleManagementSystem.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
