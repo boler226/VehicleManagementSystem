@@ -7,6 +7,6 @@ namespace VehicleManagementSystem.Domain.Entities {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Location { get; set; } = null!;
-        public ICollection<TransportEntity> VehiclesStored { get; set; } = new List<TransportEntity>();
+        public ICollection<TransportEntity>? VehiclesStored { get; set; } = new List<TransportEntity>();
     }
 }

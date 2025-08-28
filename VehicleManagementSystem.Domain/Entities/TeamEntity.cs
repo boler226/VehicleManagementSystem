@@ -23,7 +23,7 @@ namespace VehicleManagementSystem.Domain.Entities {
         public Guid? WorkshopHeadId { get; set; }
         public PersonEntity? WorkshopHead { get; set; }
 
-        public ICollection<DriverEntity> Drivers { get; set; } = new List<DriverEntity>();
+        public ICollection<DriverEntity>? Drivers { get; set; } = new List<DriverEntity>();
         public ICollection<TechnicianEntity> Technicians { get; set; } = new List<TechnicianEntity>();
     }
 }

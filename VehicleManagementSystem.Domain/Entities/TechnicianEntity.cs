@@ -11,6 +11,6 @@ namespace VehicleManagementSystem.Domain.Entities {
         [BsonGuidRepresentation(GuidRepresentation.Standard)]
         public Guid TeamId { get; set; }
         public TeamEntity Team { get; set; } = null!;
-        public ICollection<RepairWorkEntity> RepairWorks { get; set; } = new List<RepairWorkEntity>();
+        public ICollection<RepairWorkEntity>? RepairWorks { get; set; } = new List<RepairWorkEntity>();
     }
 }
