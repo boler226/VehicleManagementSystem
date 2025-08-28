@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Team.Add {
     public class AddTeamCommandHandler(
@@ -29,7 +30,7 @@ namespace VehicleManagementSystem.Application.Commands.Team.Add {
             foreach (var (role, personId) in personRoles) {
                 if (personId.HasValue) {
                     var person = await unitOfWork.Persons.GetByIdAsync(personId.Value, cancellationToken)
-                                 ?? throw new Exception($"{role} with ID {personId.Value} not found");
+                                 ?? throw new NotFoundException(role, personId);
 
                     roleSetters[role](person);
                 }

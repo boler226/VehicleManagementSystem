@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Team.Update {
     public class UpdateTeamCommandHandler(
@@ -8,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.Team.Update {
         ) : IRequestHandler<UpdateTeamCommand, Unit> {
         public async Task<Unit> Handle(UpdateTeamCommand request, CancellationToken cancellationToken) {
             var team = await unitOfWork.Teams.GetByIdAsync(request.Id, cancellationToken)
-                       ?? throw new Exception("Team not found");
+                       ?? throw new NotFoundException(nameof(TeamEntity), request.Id);
 
             var roleSetters = new Dictionary<string, Action<PersonEntity>> {
                 { "Foreman", p => { team.Foreman = p; team.ForemanId = p.Id; } },
@@ -27,7 +28,7 @@ namespace VehicleManagementSystem.Application.Commands.Team.Update {
             foreach (var (role, personId) in personRoles) {
                 if (personId.HasValue) {
                     var person = await unitOfWork.Persons.GetByIdAsync(personId.Value, cancellationToken)
-                                 ?? throw new Exception($"{role} with ID {personId.Value} not found");
+                                 ?? throw new NotFoundException(role, personId);
 
                     roleSetters[role](person);
                 }

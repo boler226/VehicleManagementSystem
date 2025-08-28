@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Domain.Interfaces.Repositories;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Transport.DeleteTransport
 {
@@ -11,7 +13,7 @@ namespace VehicleManagementSystem.Application.Commands.Transport.DeleteTransport
         public async Task<Unit> Handle(DeleteTransportCommand request, CancellationToken cancellationToken)
         {
             var transport = await unitOfWork.Transports.GetByIdAsync(request.Id, cancellationToken)
-                            ?? throw new Exception("Transport not found");
+                            ?? throw new NotFoundException(nameof(TransportEntity), request.Id);
 
             await unitOfWork.DriverTransports.DeleteByTransportIdAsync(request.Id, cancellationToken);
             await unitOfWork.Transports.DeleteAsync(transport, cancellationToken);

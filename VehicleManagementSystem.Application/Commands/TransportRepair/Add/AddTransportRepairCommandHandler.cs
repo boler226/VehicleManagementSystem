@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.TransportRepair.Add {
     public class AddTransportRepairCommandHandler(
@@ -8,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.TransportRepair.Add {
         ) : IRequestHandler<AddTransportRepairCommand, Guid> {
         public async Task<Guid> Handle(AddTransportRepairCommand request, CancellationToken cancellationToken) {
             var transport = await unitOfWork.Transports.GetByIdAsync(request.TransportId, cancellationToken)
-                            ?? throw new Exception("Transport not found");
+                            ?? throw new NotFoundException(nameof(TransportEntity), request.TransportId);
 
             var repair = new TransportRepairEntity {
                 Id = Guid.NewGuid(),
@@ -20,7 +21,7 @@ namespace VehicleManagementSystem.Application.Commands.TransportRepair.Add {
 
             if (request.GarageId is not null) {
                 var garage = await unitOfWork.GarageObjects.GetByIdAsync(request.GarageId.Value, cancellationToken)
-                             ?? throw new Exception("Garage objects not found");
+                             ?? throw new NotFoundException(nameof(GarageObjectEntity), request.GarageId);
 
                 repair.GarageObject = garage;
                 repair.GarageObjectId = garage.Id;

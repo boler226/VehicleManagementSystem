@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Driver.Add {
     public class AddDriverCommandHandler(
@@ -8,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.Driver.Add {
         ) : IRequestHandler<AddDriverCommand, Guid> {
         public async Task<Guid> Handle(AddDriverCommand request, CancellationToken cancellationToken) {
             var team = await unitOfWork.Teams.GetByIdAsync(request.TeamId, cancellationToken)
-                ?? throw new Exception("Team not found");
+                             ?? throw new NotFoundException(nameof(TeamEntity), request.TeamId);
 
             var driver = new DriverEntity {
                 Id = Guid.NewGuid(),

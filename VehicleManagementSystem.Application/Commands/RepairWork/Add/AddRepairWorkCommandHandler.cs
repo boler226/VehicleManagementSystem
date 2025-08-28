@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.RepairWork.Add {
     public class AddRepairWorkCommandHandler(
@@ -8,10 +9,10 @@ namespace VehicleManagementSystem.Application.Commands.RepairWork.Add {
         ) : IRequestHandler<AddRepairWorkCommand, Guid> {
         public async Task<Guid> Handle(AddRepairWorkCommand request, CancellationToken cancellationToken) {
             var technician = await unitOfWork.Technicians.GetByIdAsync(request.TechnicianId, cancellationToken)
-                             ?? throw new Exception("Technician not found");
+                             ?? throw new NotFoundException(nameof(TechnicianEntity), request.TechnicianId);
 
             var repair = await unitOfWork.TransportRepairs.GetByIdAsync(request.RepairId, cancellationToken)
-                         ?? throw new Exception("Repair not found");
+                         ?? throw new NotFoundException(nameof(RepairWorkEntity), request.RepairId);
 
             var work = new RepairWorkEntity {
                 Id = Guid.NewGuid(),

@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.MileageRecord.Update {
     public class UpdateMileageRecordCommandHandler(
@@ -7,11 +9,11 @@ namespace VehicleManagementSystem.Application.Commands.MileageRecord.Update {
         ) : IRequestHandler<UpdateMileageRecordCommand, Unit> {
         public async Task<Unit> Handle(UpdateMileageRecordCommand request, CancellationToken cancellationToken) {
             var mileageRecord = await unitOfWork.MileageRecords.GetByIdAsync(request.Id, cancellationToken)
-                                ?? throw new Exception("MileageRecord not found");
+                                ?? throw new NotFoundException(nameof(MileageRecordEntity), request.Id);
 
             if (request.TransportId.HasValue) {
                 var transport = await unitOfWork.Transports.GetByIdAsync(request.TransportId.Value, cancellationToken)
-                                ?? throw new Exception("Transport not found");
+                                ?? throw new NotFoundException(nameof(TransportEntity), request.TransportId);
 
                 mileageRecord.Transport = transport;
                 mileageRecord.TransportId = transport.Id;

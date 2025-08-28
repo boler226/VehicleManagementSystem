@@ -2,6 +2,7 @@
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Domain.Interfaces.Repositories;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport
 {
@@ -23,7 +24,7 @@ namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport
 
             if (request.GarageId is not null) {
                 var garage = await unitOfWork.GarageObjects.GetByIdAsync(request.GarageId.Value, cancellationToken)
-                             ?? throw new Exception("Garage objects not found");
+                             ?? throw new NotFoundException(nameof(GarageObjectEntity), request.GarageId);
 
                 transport.GarageObject = garage;
                 transport.GarageObjectId = garage.Id;

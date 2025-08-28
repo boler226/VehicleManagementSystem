@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Route.Update {
     public class UpdateRouteCommandHandler(
@@ -7,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.Route.Update {
         ) : IRequestHandler<UpdateRouteCommand, Unit> {
         public async Task<Unit> Handle(UpdateRouteCommand request, CancellationToken cancellationToken) {
             var route = await unitOfWork.Routes.GetByIdAsync(request.Id, cancellationToken)
-                        ?? throw new Exception("Route not found");
+                        ?? throw new NotFoundException(nameof(RouteEntity), request.Id);
 
             if (!string.IsNullOrWhiteSpace(request.RouterNumber))
                 route.RouterNumber = request.RouterNumber;

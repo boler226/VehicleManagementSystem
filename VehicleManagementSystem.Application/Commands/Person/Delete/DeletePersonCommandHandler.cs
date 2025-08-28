@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
+using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Person.Delete {
     public class DeletePersonCommandHandler(
@@ -8,7 +9,7 @@ namespace VehicleManagementSystem.Application.Commands.Person.Delete {
         ) : IRequestHandler<DeletePersonCommand, Unit> {
         public async Task<Unit> Handle(DeletePersonCommand request, CancellationToken cancellationToken) {
             var person = await unitOfWork.Persons.GetByIdAsync(request.Id, cancellationToken)
-                         ?? throw new Exception("Person not found");
+                         ?? throw new NotFoundException(nameof(PersonEntity), request.Id);
 
             await unitOfWork.Persons.DeleteAsync(person, cancellationToken);
 
