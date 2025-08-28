@@ -9,8 +9,7 @@ namespace VehicleManagementSystem.Application.Queries.RepairWork.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllRepairWorksQuery, List<RepairWorkDto>> {
         public async Task<List<RepairWorkDto>> Handle(GetAllRepairWorksQuery request, CancellationToken cancellationToken) {
-            var works = await unitOfWork.RepairWorks.GetAllAsync(cancellationToken)
-                        ?? throw new Exception("Repair works does not exist");
+            var works = await unitOfWork.RepairWorks.GetAllAsync(cancellationToken);
 
             return mapper.Map<List<RepairWorkDto>>(works);
         }

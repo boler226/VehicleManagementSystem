@@ -9,8 +9,7 @@ namespace VehicleManagementSystem.Application.Queries.Team.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllTeamsQuery, List<TeamDto>> {
         public async Task<List<TeamDto>> Handle(GetAllTeamsQuery request, CancellationToken cancellationToken) {
-            var teams = await unitOfWork.Teams.GetAllAsync(cancellationToken)
-                        ?? throw new Exception("Teams does not exist");
+            var teams = await unitOfWork.Teams.GetAllAsync(cancellationToken);
 
             if (teams is not null) {
                 foreach (var team in teams)

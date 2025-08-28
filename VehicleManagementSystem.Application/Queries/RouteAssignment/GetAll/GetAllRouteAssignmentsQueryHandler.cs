@@ -9,8 +9,7 @@ namespace VehicleManagementSystem.Application.Queries.RouteAssignment.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllRouteAssignmentsQuery, List<RouteAssignmentDto>> {
         public async Task<List<RouteAssignmentDto>> Handle(GetAllRouteAssignmentsQuery request, CancellationToken cancellationToken) {
-            var assignments = await unitOfWork.RouteAssignments.GetAllAsync(cancellationToken)
-                              ?? throw new Exception("Route assignments does not exist");
+            var assignments = await unitOfWork.RouteAssignments.GetAllAsync(cancellationToken);
 
             return mapper.Map<List<RouteAssignmentDto>>(assignments);
         }

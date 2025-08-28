@@ -9,11 +9,12 @@ namespace VehicleManagementSystem.Application.Queries.Driver.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllDriversQuery, List<DriverDto>> {
         public async Task<List<DriverDto>> Handle(GetAllDriversQuery request, CancellationToken cancellationToken) {
-            var drivers = await unitOfWork.Drivers.GetAllAsync(cancellationToken)
-                ?? throw new Exception("Drivers does not exist");
+            var drivers = await unitOfWork.Drivers.GetAllAsync(cancellationToken);
 
-            foreach (var driver in drivers) 
-                driver.Vechicles = await unitOfWork.DriverTransports.GetAllByDriverIdAsync(driver.Id, cancellationToken);
+            if (drivers is not null) {
+                foreach (var driver in drivers)
+                    driver.Vechicles = await unitOfWork.DriverTransports.GetAllByDriverIdAsync(driver.Id, cancellationToken);
+            }
             
             return mapper.Map<List<DriverDto>>(drivers);
         }

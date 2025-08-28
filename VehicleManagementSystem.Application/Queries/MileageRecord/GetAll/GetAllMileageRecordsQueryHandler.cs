@@ -9,8 +9,7 @@ namespace VehicleManagementSystem.Application.Queries.MileageRecord.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllMileageRecordsQuery, List<MileageRecordDto>> {
         public async Task<List<MileageRecordDto>> Handle(GetAllMileageRecordsQuery request, CancellationToken cancellationToken) {
-            var mileageRecords = await unitOfWork.MileageRecords.GetAllAsync(cancellationToken)
-                                 ?? throw new Exception("MileageRecords does not exist");
+            var mileageRecords = await unitOfWork.MileageRecords.GetAllAsync(cancellationToken);
 
             return mapper.Map<List<MileageRecordDto>>(mileageRecords);
         }

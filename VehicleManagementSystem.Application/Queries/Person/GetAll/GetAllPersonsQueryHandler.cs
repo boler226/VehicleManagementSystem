@@ -9,8 +9,7 @@ namespace VehicleManagementSystem.Application.Queries.Person.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllPersonsQuery, List<PersonDto>> {
         public async Task<List<PersonDto>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken) {
-            var persons = await unitOfWork.Persons.GetAllAsync(cancellationToken)
-                          ?? throw new Exception("Persons does not exist");
+            var persons = await unitOfWork.Persons.GetAllAsync(cancellationToken);
 
             return mapper.Map<List<PersonDto>>(persons);
         }

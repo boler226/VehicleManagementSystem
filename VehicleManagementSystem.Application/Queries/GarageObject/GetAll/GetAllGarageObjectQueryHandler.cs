@@ -12,12 +12,8 @@ namespace VehicleManagementSystem.Application.Queries.GarageObject.GetAll {
             var garageObjects = await unitOfWork.GarageObjects.GetAllAsync(cancellationToken);
 
             if (garageObjects is not null) {
-                foreach (var garage in garageObjects) {
-                    var transports = await unitOfWork.Transports.GetAllByGarageIdAsync(garage.Id, cancellationToken);
-
-                    if (transports is not null) 
-                        garage.VehiclesStored = transports;
-                }
+                foreach (var garage in garageObjects) 
+                    garage.VehiclesStored = await unitOfWork.Transports.GetAllByGarageIdAsync(garage.Id, cancellationToken);
             }
 
             return mapper.Map<List<GarageObjectDto>>(garageObjects);

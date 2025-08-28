@@ -10,8 +10,7 @@ namespace VehicleManagementSystem.Application.Queries.Transport.GetWithRoutesByP
     {
         public async Task<TransportWithRoutesDto> Handle(GetWithRoutesByPeriodQuery request, CancellationToken cancellationToken)
         {
-            var result = await repository.GetWithRoutesByPeriodAsync(request.Id, request.From, request.To, cancellationToken)
-                ?? throw new Exception("Transport not found");
+            var result = await repository.GetWithRoutesByPeriodAsync(request.Id, request.From, request.To, cancellationToken);
 
             return mapper.Map<TransportWithRoutesDto>(result);
         }

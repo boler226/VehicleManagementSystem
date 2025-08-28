@@ -9,14 +9,15 @@ namespace VehicleManagementSystem.Application.Queries.TransportRepair.GetAll {
         IMapper mapper
         ) : IRequestHandler<GetAllTransportRepairsQuery, List<TransportRepairDto>> {
         public async Task<List<TransportRepairDto>> Handle(GetAllTransportRepairsQuery request, CancellationToken cancellationToken) {
-            var repairs = await unitOfWork.TransportRepairs.GetAllAsync(cancellationToken)
-                          ?? throw new Exception("Transport repairs does not exist"); 
+            var repairs = await unitOfWork.TransportRepairs.GetAllAsync(cancellationToken);
 
-            foreach (var repair in repairs ) {
-                var works = await unitOfWork.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
+            if (repairs is not null) {
+                foreach (var repair in repairs) {
+                    var works = await unitOfWork.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
 
-                if (works is not null) 
-                    repair.RepairWorks = works;
+                    if (works is not null)
+                        repair.RepairWorks = works;
+                }
             }
 
             return mapper.Map<List<TransportRepairDto>>(repairs);

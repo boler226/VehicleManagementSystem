@@ -12,12 +12,12 @@ namespace VehicleManagementSystem.Application.Queries.Technician.GetAll
     {
         public async Task<List<TechnicianDto>> Handle(GetAllTechniciansQuery request, CancellationToken cancellationToken)
         {
-            var technicians = await unitOfWork.Technicians.GetAllAsync(cancellationToken)
-                             ?? throw new Exception("Technicians does not exist");
+            var technicians = await unitOfWork.Technicians.GetAllAsync(cancellationToken);
 
-            foreach (var technician in technicians) 
-                technician.RepairWorks = await unitOfWork.RepairWorks.GetAllByTechnicianIdAsync(technician.Id, cancellationToken);
-            
+            if (technicians is not null) {
+                foreach (var technician in technicians)
+                    technician.RepairWorks = await unitOfWork.RepairWorks.GetAllByTechnicianIdAsync(technician.Id, cancellationToken);
+            }        
 
             return mapper.Map<List<TechnicianDto>>(technicians);
         }

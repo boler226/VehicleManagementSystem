@@ -12,24 +12,25 @@ namespace VehicleManagementSystem.Application.Queries.Transport.GetAll
     {
         public async Task<List<TransportDto>> Handle(GetAllTransportsQuery request, CancellationToken cancellationToken)
         {
-            var transports = await unitOfWork.Transports.GetAllAsync(cancellationToken)
-                             ?? throw new Exception("Transports does not exist");
+            var transports = await unitOfWork.Transports.GetAllAsync(cancellationToken);
 
-            foreach (var transport in transports) {
-                var transportDrivers = await unitOfWork.DriverTransports.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+            if (transports is not null) {
+                foreach (var transport in transports) {
+                    var transportDrivers = await unitOfWork.DriverTransports.GetAllByTransportIdAsync(transport.Id, cancellationToken);
 
-                if (transportDrivers is not null) 
-                    transport.Drivers = transportDrivers.ToList();
+                    if (transportDrivers is not null)
+                        transport.Drivers = transportDrivers.ToList();
 
-                var assignments = await unitOfWork.RouteAssignments.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                    var assignments = await unitOfWork.RouteAssignments.GetAllByTransportIdAsync(transport.Id, cancellationToken);
 
-                if (assignments is not null)
-                    transport.Assignments = assignments.ToList();
+                    if (assignments is not null)
+                        transport.Assignments = assignments.ToList();
 
-                var milegeas = await unitOfWork.MileageRecords.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                    var milegeas = await unitOfWork.MileageRecords.GetAllByTransportIdAsync(transport.Id, cancellationToken);
 
-                if(milegeas is not null) 
-                    transport.Mileages = milegeas.ToList();
+                    if (milegeas is not null)
+                        transport.Mileages = milegeas.ToList();
+                }
             }
 
             return mapper.Map<List<TransportDto>>(transports);
