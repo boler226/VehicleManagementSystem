@@ -1,5 +1,4 @@
 ﻿using MediatR;
 
-namespace VehicleManagementSystem.Application.Commands.Person.Add {
-    public record AddPersonCommand(string FullName, string Position) : IRequest<Guid>;
-}
+namespace VehicleManagementSystem.Application.Commands.Person.Add; 
+public record AddPersonCommand(string FullName, string Position) : IRequest<Guid>;

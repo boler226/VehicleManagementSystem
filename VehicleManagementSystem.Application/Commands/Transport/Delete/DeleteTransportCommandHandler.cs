@@ -4,21 +4,20 @@ using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
-namespace VehicleManagementSystem.Application.Commands.Transport.DeleteTransport
+namespace VehicleManagementSystem.Application.Commands.Transport.DeleteTransport;
+
+public class DeleteTransportCommandHandler(
+    IRepositoryManager manager
+    ) : IRequestHandler<DeleteTransportCommand, Unit>
 {
-    public class DeleteTransportCommandHandler(
-        IUnitOfWork unitOfWork
-        ) : IRequestHandler<DeleteTransportCommand, Unit>
+    public async Task<Unit> Handle(DeleteTransportCommand request, CancellationToken cancellationToken)
     {
-        public async Task<Unit> Handle(DeleteTransportCommand request, CancellationToken cancellationToken)
-        {
-            var transport = await unitOfWork.Transports.GetByIdAsync(request.Id, cancellationToken)
-                            ?? throw new NotFoundException(nameof(TransportEntity), request.Id);
+        var transport = await manager.Transports.GetByIdAsync(request.Id, cancellationToken)
+                        ?? throw new NotFoundException(nameof(TransportEntity), request.Id);
 
-            await unitOfWork.DriverTransports.DeleteByTransportIdAsync(request.Id, cancellationToken);
-            await unitOfWork.Transports.DeleteAsync(transport, cancellationToken);
+        await manager.DriverTransports.DeleteByTransportIdAsync(request.Id, cancellationToken);
+        await manager.Transports.DeleteAsync(transport, cancellationToken);
 
-            return Unit.Value;
-        }
+        return Unit.Value;
     }
 }

@@ -5,6 +5,5 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleManagementSystem.Application.Commands.Driver.Delete {
-    public record DeleteDriverCommand(Guid Id) : IRequest<Unit>;
-}
+namespace VehicleManagementSystem.Application.Commands.Driver.Delete; 
+public record DeleteDriverCommand(Guid Id) : IRequest<Unit>;

@@ -3,25 +3,24 @@ using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
-namespace VehicleManagementSystem.Application.Commands.Driver.Add {
-    public class AddDriverCommandHandler(
-        IUnitOfWork unitOfWork
-        ) : IRequestHandler<AddDriverCommand, Guid> {
-        public async Task<Guid> Handle(AddDriverCommand request, CancellationToken cancellationToken) {
-            var team = await unitOfWork.Teams.GetByIdAsync(request.TeamId, cancellationToken)
-                             ?? throw new NotFoundException(nameof(TeamEntity), request.TeamId);
+namespace VehicleManagementSystem.Application.Commands.Driver.Add; 
+public class AddDriverCommandHandler(
+    IRepositoryManager manager
+    ) : IRequestHandler<AddDriverCommand, Guid> {
+    public async Task<Guid> Handle(AddDriverCommand request, CancellationToken cancellationToken) {
+        var team = await manager.Teams.GetByIdAsync(request.TeamId, cancellationToken)
+                         ?? throw new NotFoundException(nameof(TeamEntity), request.TeamId);
 
-            var driver = new DriverEntity {
-                Id = Guid.NewGuid(),
-                FullName = request.FullName,
-                LicenseNumber = request.LicenseNumber,
-                TeamId = team.Id,
-                Team = team
-            };
+        var driver = new DriverEntity {
+            Id = Guid.NewGuid(),
+            FullName = request.FullName,
+            LicenseNumber = request.LicenseNumber,
+            TeamId = team.Id,
+            Team = team
+        };
 
-            await unitOfWork.Drivers.AddAsync(driver, cancellationToken);
+        await manager.Drivers.AddAsync(driver, cancellationToken);
 
-            return driver.Id;
-        }
+        return driver.Id;
     }
 }

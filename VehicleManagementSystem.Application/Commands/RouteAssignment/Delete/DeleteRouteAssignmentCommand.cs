@@ -1,5 +1,4 @@
 ﻿using MediatR;
 
-namespace VehicleManagementSystem.Application.Commands.RouteAssignment.Delete {
-    public record DeleteRouteAssignmentCommand(Guid Id) : IRequest<Unit>;
-}
+namespace VehicleManagementSystem.Application.Commands.RouteAssignment.Delete; 
+public record DeleteRouteAssignmentCommand(Guid Id) : IRequest<Unit>;
