@@ -1,12 +1,7 @@
 ﻿using VehicleManagementSystem.Domain.Entities;
 
-namespace VehicleManagementSystem.Domain.Interfaces.Repositories {
-    public interface ITransportRepairRepository {
-        Task<TransportRepairEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-        Task<List<TransportRepairEntity>?> GetAllAsync(CancellationToken cancellationToken);
-        Task<List<TransportRepairEntity>?> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken);
-        Task AddAsync(TransportRepairEntity repair, CancellationToken cancellationToken);
-        Task UpdateAsync(TransportRepairEntity repair, CancellationToken cancellationToken);
-        Task DeleteAsync(TransportRepairEntity repair, CancellationToken cancellationToken);
-    }
+namespace VehicleManagementSystem.Domain.Interfaces.Repositories; 
+public interface ITransportRepairRepository : IBaseRepository<TransportRepairEntity>
+{
+    Task<List<TransportRepairEntity>?> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken);
 }
