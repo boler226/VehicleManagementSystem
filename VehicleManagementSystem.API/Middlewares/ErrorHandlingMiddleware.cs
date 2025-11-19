@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.API.Middlewares;
@@ -10,16 +11,20 @@ public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> log
         {
             await next(context);
         }
-        catch (Exception ex)
+        catch (NotFoundException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsJsonAsync(new ProblemDetails
+            {
+                Type = ex.GetType().Name,
+                Title = "Not Found",
+                Detail = ex.Message
+            });
+        }
+        catch (Exception ex) 
         {
             logger.LogError(ex, "Unhandled exception occured");
-
-            context.Response.StatusCode = ex switch
-            {
-                NotFoundException => StatusCodes.Status404NotFound,
-                _ => StatusCodes.Status500InternalServerError
-            };
-
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsJsonAsync(new ProblemDetails
             {
                 Type = ex.GetType().Name,

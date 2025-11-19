@@ -1,10 +1,13 @@
-﻿using MediatR;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using MediatR;
 using VehicleManagementSystem.Application.DTOs.GarageObject;
 using VehicleManagementSystem.Domain.Interfaces;
 
 namespace VehicleManagementSystem.Application.Queries.GarageObject.GetGarageStatistics;
 public class GetGarageStatisticsQueryHandler(
-    IRepositoryManager repositoryManager
+    IRepositoryManager repositoryManager,
+    IMapper mapper
     ) : IRequestHandler<GetGarageStatisticsQuery, List<GarageObjectStatisticsDto>>
 {
     public async Task<List<GarageObjectStatisticsDto>> Handle(GetGarageStatisticsQuery query, CancellationToken cancellationToken)

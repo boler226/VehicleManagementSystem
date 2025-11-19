@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using VehicleManagementSystem.Domain.Entities;
+using VehicleManagementSystem.Domain.Enums;
 using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.DbContext;
 
@@ -24,6 +25,17 @@ public class MileageRecordRepository : IMileageRecordRepository {
     public async Task<List<MileageRecordEntity>> GetByTransportIdAsync(Guid transportId, CancellationToken cancellationToken)
     {
         return await _collection.Find(m => m.TransportId == transportId).ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<MileageRecordEntity>> GetByDateAsync(DateTime date, CancellationToken cancellationToken)
+    {
+        var start = date.Date;
+        var end = start.AddDays(1);
+
+        var filter = Builders<MileageRecordEntity>.Filter.Gte(r => r.Date, start) &
+                     Builders<MileageRecordEntity>.Filter.Lt(r => r.Date, end);
+
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(MileageRecordEntity mileageRecord, CancellationToken cancellationToken)
