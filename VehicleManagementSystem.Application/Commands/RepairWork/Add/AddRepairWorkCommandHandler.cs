@@ -18,12 +18,14 @@ public class AddRepairWorkCommandHandler(
             Id = Guid.NewGuid(),
             Technician = technician,
             TechnicianId = request.TechnicianId,
-            Repair = repair,
             RepairId = request.RepairId,
             PartName = request.PartName,
             WorkDescription = request.WorkDescription
         };
 
+        repair.RepairWorks.Add(work);
+
+        await manager.TransportRepairs.UpdateAsync(repair, cancellationToken);
         await manager.RepairWorks.AddAsync(work, cancellationToken);
 
         return work.Id;

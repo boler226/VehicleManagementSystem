@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.TransportRepair.Add;
 using VehicleManagementSystem.Application.Commands.TransportRepair.Delete;
 using VehicleManagementSystem.Application.Commands.TransportRepair.Update;
+using VehicleManagementSystem.Application.Queries.RepairWork.GetPartUsage;
 using VehicleManagementSystem.Application.Queries.TransportRepair.GetAll;
+using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
@@ -13,6 +15,14 @@ public class TransportRepairsController(IMediator mediator) : ControllerBase {
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTransportRepairsQuery());
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetPartUsage(
+        [FromQuery] TransportEnum category)
+    {
+        var result = await mediator.Send(new GetPartUsageQuery(category));
         return Ok(result);
     }
 

@@ -20,12 +20,9 @@ public class MileageRecordsController(IMediator mediator) : ControllerBase {
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<MileageRecordDto>>> GetMileageRecords(
-          [FromQuery] DateTime date,
-          [FromQuery] TransportEnum? category,
-          [FromQuery] Guid? transportId)
+    public async Task<ActionResult<List<MileageRecordDto>>> GetMileageRecords([FromQuery] GetMileageRecordByDateQuery query)
     {
-        var result = await mediator.Send(new GetMileageRecordByDateQuery(date, category, transportId));
+        var result = await mediator.Send(query);
         return Ok(result);
     }
 

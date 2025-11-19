@@ -27,6 +27,15 @@ public class TransportRepairRepository : ITransportRepairRepository
         return await _collection.Find(t => t.GarageObjectId == GarageId).ToListAsync(cancellationToken);
     }
 
+    public async Task<List<TransportRepairEntity>> GetByTransportIdsAsync(
+        List<Guid> transportIds,
+        CancellationToken cancellationToken)
+    {
+        return await _collection
+            .Find(r => transportIds.Contains(r.TransportId))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task AddAsync(TransportRepairEntity repair, CancellationToken cancellationToken)
     {
         await _collection.InsertOneAsync(repair, cancellationToken: cancellationToken);

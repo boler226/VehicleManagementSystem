@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using VehicleManagementSystem.Domain.Entities;
+using VehicleManagementSystem.Domain.Enums;
 using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.DbContext;
 
@@ -26,6 +27,11 @@ public class TransportRepository : ITransportRepository
     public async Task<List<TransportEntity>> GetByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken)
     {
         return await _collection.Find(t => t.GarageObjectId == GarageId).ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<TransportEntity>> GetByTypeAsync(TransportEnum type, CancellationToken cancellationToken)
+    {
+        return await _collection.Find(t => t.Type == type).ToListAsync(cancellationToken);
     }
 
     public async Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken) {
