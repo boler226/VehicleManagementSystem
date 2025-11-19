@@ -13,7 +13,7 @@ public class GetAllRoutesQueryHandler(
 
         if (routes is not null) {
             foreach (var route in routes) {
-                var assignments = await manager.RouteAssignments.GetAllByRouteIdAsync(route.Id, cancellationToken);
+                var assignments = await manager.RouteAssignments.GetByRouteIdAsync(route.Id, cancellationToken);
 
                 if (assignments is not null)
                     route.Assignments = assignments.ToList();

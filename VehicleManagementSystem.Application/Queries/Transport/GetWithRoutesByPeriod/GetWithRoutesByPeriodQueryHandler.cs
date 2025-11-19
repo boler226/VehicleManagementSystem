@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using MediatR;
 using VehicleManagementSystem.Application.DTOs.Transport;
 using VehicleManagementSystem.Domain.Interfaces;
-using VehicleManagementSystem.Domain.Interfaces.Repositories;
 
 namespace VehicleManagementSystem.Application.Queries.Transport.GetWithRoutesByPeriod;
 
 public class GetWithRoutesByPeriodQueryHandler(
     IRepositoryManager manager,
-    IMapper mapper)
+    IMapper mapper) : IRequestHandler<GetWithRoutesByPeriodQuery, TransportWithRoutesDto>
 {
     public async Task<TransportWithRoutesDto> Handle(GetWithRoutesByPeriodQuery request, CancellationToken cancellationToken)
     {

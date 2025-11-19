@@ -13,7 +13,7 @@ public class GetAllGarageObjectQueryHandler(
 
         if (garageObjects is not null) {
             foreach (var garage in garageObjects) 
-                garage.VehiclesStored = await manager.Transports.GetAllByGarageIdAsync(garage.Id, cancellationToken);
+                garage.VehiclesStored = await manager.Transports.GetByGarageIdAsync(garage.Id, cancellationToken);
         }
 
         return mapper.Map<List<GarageObjectDto>>(garageObjects);

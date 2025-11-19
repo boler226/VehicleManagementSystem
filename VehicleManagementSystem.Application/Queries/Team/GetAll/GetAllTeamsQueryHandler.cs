@@ -13,7 +13,7 @@ public class GetAllTeamsQueryHandler(
 
         if (teams is not null) {
             foreach (var team in teams)
-                team.Drivers = await manager.Drivers.GetAllByTeamIdAsync(team.Id, cancellationToken);
+                team.Drivers = await manager.Drivers.GetByTeamIdAsync(team.Id, cancellationToken);
         }   
 
         return mapper.Map<List<TeamDto>>(teams);

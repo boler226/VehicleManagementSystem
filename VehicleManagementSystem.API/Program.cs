@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories();
 
+builder.Services.AddTransient<ErrorHandlingMiddleware>();
 builder.Services.AddAutoMapper(typeof(TransportMappingProfile).Assembly);
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(AddTransportCommand).Assembly));

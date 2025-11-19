@@ -18,7 +18,7 @@ public class DriverRepository : IDriverRepository
         return await _collection.Find(d => d.Id == id).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<List<DriverEntity>?> GetAllByTeamIdAsync(Guid teamId, CancellationToken cancellationToken)
+    public async Task<List<DriverEntity>> GetByTeamIdAsync(Guid teamId, CancellationToken cancellationToken)
     {
         return await _collection.Find(d => d.TeamId == teamId).ToListAsync(cancellationToken);
     }

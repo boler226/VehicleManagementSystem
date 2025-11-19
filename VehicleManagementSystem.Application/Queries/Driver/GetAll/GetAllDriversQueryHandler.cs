@@ -13,7 +13,7 @@ public class GetAllDriversQueryHandler(
 
         if (drivers is not null) {
             foreach (var driver in drivers)
-                driver.Vechicles = await manager.DriverTransports.GetAllByDriverIdAsync(driver.Id, cancellationToken);
+                driver.Vechicles = await manager.DriverTransports.GetByDriverIdAsync(driver.Id, cancellationToken);
         }
         
         return mapper.Map<List<DriverDto>>(drivers);

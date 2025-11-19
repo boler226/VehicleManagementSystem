@@ -16,7 +16,7 @@ public class GetAllTechniciansQueryHandler(
 
         if (technicians is not null) {
             foreach (var technician in technicians)
-                technician.RepairWorks = await manager.RepairWorks.GetAllByTechnicianIdAsync(technician.Id, cancellationToken);
+                technician.RepairWorks = await manager.RepairWorks.GetByTechnicianIdAsync(technician.Id, cancellationToken);
         }        
 
         return mapper.Map<List<TechnicianDto>>(technicians);

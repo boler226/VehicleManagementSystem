@@ -4,5 +4,5 @@ namespace VehicleManagementSystem.Domain.Interfaces.Repositories;
 
 public interface IDriverRepository : IBaseRepository<DriverEntity>
 {
-    Task<List<DriverEntity>?> GetAllByTeamIdAsync(Guid teamId, CancellationToken cancellationToken);
+    Task<List<DriverEntity>> GetByTeamIdAsync(Guid teamId, CancellationToken cancellationToken);
 }

@@ -4,6 +4,7 @@ using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Commands.Transport.DeleteTransport;
 using VehicleManagementSystem.Application.Commands.Transport.Update;
 using VehicleManagementSystem.Application.Queries.Transport.GetAll;
+using VehicleManagementSystem.Application.Queries.Transport.GetWithRoutesByPeriod;
 
 namespace VehicleManagementSystem.API.Controllers;
 
@@ -14,6 +15,13 @@ public class TransportsController(IMediator mediator) : ControllerBase {
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTransportsQuery());
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetWithRoutesByPeriod([FromQuery] GetWithRoutesByPeriodQuery query)
+    {
+        var result = await mediator.Send(query);
         return Ok(result);
     }
 

@@ -17,12 +17,12 @@ public class DriverTransportRepository : IDriverTransportRepository
         return await _collection.Find(d => d.DriverId == driverId && d.TransportId == transportId).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<List<DriverTransportEntity>> GetAllByDriverIdAsync(Guid driverId, CancellationToken cancellationToken)
+    public async Task<List<DriverTransportEntity>> GetByDriverIdAsync(Guid driverId, CancellationToken cancellationToken)
     {
         return await _collection.Find(d => d.DriverId == driverId).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<DriverTransportEntity>> GetAllByTransportIdAsync(Guid transportId, CancellationToken cancellationToken)
+    public async Task<List<DriverTransportEntity>> GetByTransportIdAsync(Guid transportId, CancellationToken cancellationToken)
     {
         return await _collection.Find(d => d.TransportId == transportId).ToListAsync(cancellationToken);
     }

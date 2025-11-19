@@ -4,6 +4,7 @@ using VehicleManagementSystem.Application.Commands.GarageObject.Add;
 using VehicleManagementSystem.Application.Commands.GarageObject.Delete;
 using VehicleManagementSystem.Application.Commands.GarageObject.Update;
 using VehicleManagementSystem.Application.Queries.GarageObject.GetAll;
+using VehicleManagementSystem.Application.Queries.GarageObject.GetGarageStatistics;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
@@ -13,6 +14,13 @@ public class GarageObjectsController(IMediator mediator) : ControllerBase {
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllGarageObjectQuery());
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetStatictics()
+    {
+        var result = await mediator.Send(new GetGarageStatisticsQuery());
         return Ok(result);
     }
 

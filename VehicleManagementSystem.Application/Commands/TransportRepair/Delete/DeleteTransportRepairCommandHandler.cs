@@ -11,7 +11,7 @@ public class DeleteTransportRepairCommandHandler(
         var repair = await manager.TransportRepairs.GetByIdAsync(request.Id, cancellationToken)
                      ?? throw new NotFoundException(nameof(TransportRepairEntity), request.Id);
 
-        var works = await manager.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
+        var works = await manager.RepairWorks.GetByRepairIdAsync(repair.Id, cancellationToken);
 
         if (works is not null && works.Any()) {
             foreach (var work in works ) 

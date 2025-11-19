@@ -26,11 +26,15 @@ public class AddTransportCommandHandler(
             var garage = await manager.GarageObjects.GetByIdAsync(request.GarageId.Value, cancellationToken)
                          ?? throw new NotFoundException(nameof(GarageObjectEntity), request.GarageId);
 
-            transport.GarageObject = garage;
             transport.GarageObjectId = garage.Id;
+
+            garage.VehiclesStored?.Add(transport);
+
+            await manager.GarageObjects.UpdateAsync(garage, cancellationToken);
         }
 
         await manager.Transports.AddAsync(transport, cancellationToken);
+
         return transport.Id;
     }
 }

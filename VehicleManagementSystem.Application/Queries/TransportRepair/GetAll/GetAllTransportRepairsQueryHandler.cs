@@ -13,7 +13,7 @@ public class GetAllTransportRepairsQueryHandler(
 
         if (repairs is not null) {
             foreach (var repair in repairs) {
-                var works = await manager.RepairWorks.GetAllByRepairIdAsync(repair.Id, cancellationToken);
+                var works = await manager.RepairWorks.GetByRepairIdAsync(repair.Id, cancellationToken);
 
                 if (works is not null)
                     repair.RepairWorks = works;

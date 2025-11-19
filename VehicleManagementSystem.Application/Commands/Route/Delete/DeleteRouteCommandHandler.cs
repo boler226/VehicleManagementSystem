@@ -11,7 +11,7 @@ public class DeleteRouteCommandHandler(
         var route = await manager.Routes.GetByIdAsync(request.Id, cancellationToken)
                     ?? throw new NotFoundException(nameof(RouteEntity), request.Id);
 
-        var assignments = await manager.RouteAssignments.GetAllByRouteIdAsync(route.Id, cancellationToken);
+        var assignments = await manager.RouteAssignments.GetByRouteIdAsync(route.Id, cancellationToken);
 
         if (assignments is not null && assignments.Any()) {
             foreach (var assignment in assignments) {

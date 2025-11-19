@@ -21,7 +21,7 @@ public class MileageRecordRepository : IMileageRecordRepository {
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<MileageRecordEntity>?> GetAllByTransportIdAsync(Guid transportId, CancellationToken cancellationToken)
+    public async Task<List<MileageRecordEntity>> GetByTransportIdAsync(Guid transportId, CancellationToken cancellationToken)
     {
         return await _collection.Find(m => m.TransportId == transportId).ToListAsync(cancellationToken);
     }

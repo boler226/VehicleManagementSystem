@@ -22,7 +22,7 @@ public class TransportRepairRepository : ITransportRepairRepository
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<TransportRepairEntity>> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken)
+    public async Task<List<TransportRepairEntity>> GetByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken)
     {
         return await _collection.Find(t => t.GarageObjectId == GarageId).ToListAsync(cancellationToken);
     }

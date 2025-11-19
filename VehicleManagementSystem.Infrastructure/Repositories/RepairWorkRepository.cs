@@ -21,12 +21,12 @@ public class RepairWorkRepository : IRepairWorkRepository {
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<RepairWorkEntity>?> GetAllByRepairIdAsync(Guid repairId, CancellationToken cancellationToken)
+    public async Task<List<RepairWorkEntity>> GetByRepairIdAsync(Guid repairId, CancellationToken cancellationToken)
     {
         return await _collection.Find(w => w.RepairId == repairId).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<RepairWorkEntity>?> GetAllByTechnicianIdAsync(Guid technicianId, CancellationToken cancellationToken)
+    public async Task<List<RepairWorkEntity>> GetByTechnicianIdAsync(Guid technicianId, CancellationToken cancellationToken)
     {
         return await _collection.Find(w => w.TechnicianId == technicianId).ToListAsync(cancellationToken);
     }

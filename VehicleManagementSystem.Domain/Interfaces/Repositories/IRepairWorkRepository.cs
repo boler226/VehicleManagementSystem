@@ -3,6 +3,6 @@
 namespace VehicleManagementSystem.Domain.Interfaces.Repositories; 
 public interface IRepairWorkRepository : IBaseRepository<RepairWorkEntity>
 {
-    Task<List<RepairWorkEntity>?> GetAllByRepairIdAsync(Guid repairId, CancellationToken cancellationToken);
-    Task<List<RepairWorkEntity>?> GetAllByTechnicianIdAsync(Guid technicianId, CancellationToken cancellationToken);
+    Task<List<RepairWorkEntity>> GetByRepairIdAsync(Guid repairId, CancellationToken cancellationToken);
+    Task<List<RepairWorkEntity>> GetByTechnicianIdAsync(Guid technicianId, CancellationToken cancellationToken);
 }

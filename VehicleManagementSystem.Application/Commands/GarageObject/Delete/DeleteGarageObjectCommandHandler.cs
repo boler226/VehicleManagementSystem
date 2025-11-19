@@ -11,7 +11,7 @@ public class DeleteGarageObjectCommandHandler(
         var garage = await manager.GarageObjects.GetByIdAsync(request.Id, cancellationToken)
                      ?? throw new NotFoundException(nameof(GarageObjectEntity), request.Id);
 
-        var transports = await manager.Transports.GetAllByGarageIdAsync(request.Id, cancellationToken);
+        var transports = await manager.Transports.GetByGarageIdAsync(request.Id, cancellationToken);
 
         if (transports is not null) {
             foreach (var transport in transports) {
@@ -22,7 +22,7 @@ public class DeleteGarageObjectCommandHandler(
             }
         }
 
-        var transportReparis = await manager.TransportRepairs.GetAllByGarageIdAsync(request.Id, cancellationToken);
+        var transportReparis = await manager.TransportRepairs.GetByGarageIdAsync(request.Id, cancellationToken);
 
         if (transportReparis is not null) {
             foreach(var repairs in transportReparis) {

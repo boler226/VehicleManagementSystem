@@ -22,14 +22,29 @@ public class RouteAssignmentRepository : IRouteAssignmentRepository
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<RouteAssignmentEntity>?> GetAllByRouteIdAsync(Guid routeId, CancellationToken cancellationToken)
+    public async Task<List<RouteAssignmentEntity>> GetByRouteIdAsync(Guid routeId, CancellationToken cancellationToken)
     {
         return await _collection.Find(r => r.RouteId == routeId).ToListAsync(cancellationToken);
     }
 
-    public async Task<List<RouteAssignmentEntity>?> GetAllByTransportIdAsync(Guid trasnportId, CancellationToken cancellationToken)
+    public async Task<List<RouteAssignmentEntity>> GetByTransportIdAsync(Guid trasnportId, CancellationToken cancellationToken)
     {
         return await _collection.Find(r => r.TransportId == trasnportId).ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<RouteAssignmentEntity>> GetByTransportAndPeriodAsync(
+        Guid transportId,
+        DateTime start,
+        DateTime end,
+        CancellationToken cancellationToken)
+    {
+        var filter = Builders<RouteAssignmentEntity>.Filter.And(
+            Builders<RouteAssignmentEntity>.Filter.Eq(x => x.TransportId, transportId),
+            Builders<RouteAssignmentEntity>.Filter.Gte(x => x.Date, start),
+            Builders<RouteAssignmentEntity>.Filter.Lte(x => x.Date, end)
+        );
+
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(RouteAssignmentEntity route, CancellationToken cancellationToken)

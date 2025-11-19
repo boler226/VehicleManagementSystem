@@ -3,5 +3,5 @@
 namespace VehicleManagementSystem.Domain.Interfaces.Repositories; 
 public interface ITransportRepairRepository : IBaseRepository<TransportRepairEntity>
 {
-    Task<List<TransportRepairEntity>?> GetAllByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken);
+    Task<List<TransportRepairEntity>> GetByGarageIdAsync(Guid GarageId, CancellationToken cancellationToken);
 }

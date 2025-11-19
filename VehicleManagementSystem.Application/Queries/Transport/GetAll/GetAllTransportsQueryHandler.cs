@@ -16,17 +16,17 @@ public class GetAllTransportsQueryHandler(
 
         if (transports is not null) {
             foreach (var transport in transports) {
-                var transportDrivers = await manager.DriverTransports.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                var transportDrivers = await manager.DriverTransports.GetByTransportIdAsync(transport.Id, cancellationToken);
 
                 if (transportDrivers is not null)
                     transport.Drivers = transportDrivers.ToList();
 
-                var assignments = await manager.RouteAssignments.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                var assignments = await manager.RouteAssignments.GetByTransportIdAsync(transport.Id, cancellationToken);
 
                 if (assignments is not null)
                     transport.Assignments = assignments.ToList();
 
-                var milegeas = await manager.MileageRecords.GetAllByTransportIdAsync(transport.Id, cancellationToken);
+                var milegeas = await manager.MileageRecords.GetByTransportIdAsync(transport.Id, cancellationToken);
 
                 if (milegeas is not null)
                     transport.Mileages = milegeas.ToList();
