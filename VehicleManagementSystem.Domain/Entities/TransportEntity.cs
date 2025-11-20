@@ -14,6 +14,8 @@ public class TransportEntity
     public TransportEnum Type { get; set; }
     public int? Capacity { get; set; } // тільки для пасажирського транспорту
     public double? LoadCapacity { get; set; } // тільки для вантажного
+
+    public DateTime? AcquisitionDate { get; set; }
     public bool IsWrittenOff { get; set; }
     public DateTime? WriteOffDate { get; set; }
 

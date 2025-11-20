@@ -15,6 +15,8 @@ public class TransportDto
     public TransportEnum Type { get; set; }
     public int? Capacity { get; set; }
     public double? LoadCapacity { get; set; }
+
+    public DateTime? AcquisitionDate { get; set; }
     public bool IsWrittenOff { get; set; }
     public DateTime? WriteOffDate { get; set; }
 

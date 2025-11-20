@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using VehicleManagementSystem.Application.DTOs.Driver;
-using VehicleManagementSystem.Application.DTOs.Route;
-using VehicleManagementSystem.Application.DTOs.RouteAssignment;
 using VehicleManagementSystem.Application.DTOs.Transport;
+using VehicleManagementSystem.Application.DTOs.TransportRepair;
 using VehicleManagementSystem.Domain.Entities;
 
 namespace VehicleManagementSystem.Application.Mappings;
@@ -19,8 +18,12 @@ public class TransportMappingProfile : Profile {
         CreateMap<DriverTransportEntity, DriverShortDto>()
             .ConstructUsing(src => new DriverShortDto {
                 Id = src.Driver.Id,
-                FullName = src.Driver.FullName,
-                LicenseNumber = src.Driver.LicenseNumber
+                FullName = src.Driver.FullName
             });
+
+        CreateMap<TransportEntity, TransportRepairStatsDto>()
+           .ForMember(dest => dest.TotalCost, opt => opt.MapFrom(src => src.Repairs.Sum(r => r.Cost)));
+
+        CreateMap<TransportEntity, TransportAcquisitionWriteOffDto>();
     }
 }
