@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using VehicleManagementSystem.Application.Exceptions;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.API.Middlewares;
@@ -18,6 +19,16 @@ public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> log
             {
                 Type = ex.GetType().Name,
                 Title = "Not Found",
+                Detail = ex.Message
+            });
+        }
+        catch (TransportAlreadyAssignedToDriverException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new ProblemDetails
+            {
+                Type = ex.GetType().Name,
+                Title = "Transport Already Assigned",
                 Detail = ex.Message
             });
         }
