@@ -10,5 +10,8 @@ public interface IRouteAssignmentRepository : IBaseRepository<RouteAssignmentEnt
         DateTime start,
         DateTime end,
         CancellationToken cancellationToken);
-
+    Task<IEnumerable<RouteAssignmentEntity>> GetAssignmentsAsync(
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken);
 }

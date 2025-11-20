@@ -47,6 +47,23 @@ public class RouteAssignmentRepository : IRouteAssignmentRepository
         return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
+    public async Task<IEnumerable<RouteAssignmentEntity>> GetAssignmentsAsync(
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken)
+    {
+        var filterBuilder = Builders<RouteAssignmentEntity>.Filter;
+        var filter = FilterDefinition<RouteAssignmentEntity>.Empty;
+
+        if (fromDate.HasValue)
+            filter &= filterBuilder.Gte(x => x.Date, fromDate.Value);
+
+        if (toDate.HasValue)
+            filter &= filterBuilder.Lte(x => x.Date, toDate.Value);
+
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
+    } 
+
     public async Task AddAsync(RouteAssignmentEntity route, CancellationToken cancellationToken)
     {
         await _collection.InsertOneAsync(route, cancellationToken: cancellationToken);
