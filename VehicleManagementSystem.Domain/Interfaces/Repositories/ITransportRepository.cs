@@ -7,5 +7,15 @@ public interface ITransportRepository : IBaseRepository<TransportEntity>
 {
     Task<List<TransportEntity>> GetByGarageIdAsync(Guid GarageId,CancellationToken cancellationToken);
     Task<List<TransportEntity>> GetByTypeAsync(TransportEnum type, CancellationToken cancellationToken);
-    Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken);
+    Task<IEnumerable<TransportEntity>> GetTransportsWithRepairsAsync(
+        TransportEnum? category,
+        string? brand,
+        Guid? transportId,
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken);
+    Task<IEnumerable<TransportEntity>> GetTransportsByPeriodAsync(
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken);
 }

@@ -34,25 +34,60 @@ public class TransportRepository : ITransportRepository
         return await _collection.Find(t => t.Type == type).ToListAsync(cancellationToken);
     }
 
-    public async Task<TransportEntity?> GetWithRoutesByPeriodAsync(Guid id, DateTime from, DateTime to, CancellationToken cancellationToken) {
-        var projection = Builders<TransportEntity>.Projection.Expression(t => new TransportEntity {
-            Id = t.Id,
-            LicensePlate = t.LicensePlate,
-            Brand = t.Brand,
-            Model = t.Model,
-            Type = t.Type,
-            Capacity = t.Capacity,
-            LoadCapacity = t.LoadCapacity,
-            IsWrittenOff = t.IsWrittenOff,
-            WriteOffDate = t.WriteOffDate,
-            Assignments = t.Assignments
-                .Where(r => r.Date >= from && r.Date <= to)
-                .ToList()
-        });
+    public async Task<IEnumerable<TransportEntity>> GetTransportsWithRepairsAsync(
+        TransportEnum? category,
+        string? brand,
+        Guid? transportId,
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken)
+    {
+        var filterBuilder = Builders<TransportEntity>.Filter;
+        var filter = FilterDefinition<TransportEntity>.Empty;
 
-        var pipeline = _collection.Find(t => t.Id == id).Project(projection);
+        if (category.HasValue)
+            filter &= filterBuilder.Eq(x => x.Type, category.Value);
 
-        return await pipeline.FirstOrDefaultAsync(cancellationToken);
+        if (!string.IsNullOrEmpty(brand))
+            filter &= filterBuilder.Eq(x => x.Brand, brand);
+
+        if (transportId.HasValue)
+            filter &= filterBuilder.Eq(x => x.Id, transportId.Value);
+
+        var transports = await _collection.Find(filter).ToListAsync(cancellationToken);
+
+        foreach (var transport in transports)
+        {
+            transport.Repairs = transport.Repairs
+                .Where(r => (!fromDate.HasValue || r.RepairDate >= fromDate.Value) &&
+                            (!toDate.HasValue || r.RepairDate <= toDate.Value))
+                .ToList();
+        }
+
+        return transports;
+    }
+
+    public async Task<IEnumerable<TransportEntity>> GetTransportsByPeriodAsync(
+        DateTime? fromDate,
+        DateTime? toDate,
+        CancellationToken cancellationToken)
+    {
+        var filterBuilder = Builders<TransportEntity>.Filter;
+        var filter = FilterDefinition<TransportEntity>.Empty;
+
+        if (fromDate.HasValue)
+            filter &= filterBuilder.Or(
+                filterBuilder.Gte(x => x.WriteOffDate, fromDate.Value),
+                filterBuilder.Eq(x => x.WriteOffDate, null) // ще не списаний
+            );
+
+        if (toDate.HasValue)
+            filter &= filterBuilder.Or(
+                filterBuilder.Lte(x => x.WriteOffDate, toDate.Value),
+                filterBuilder.Eq(x => x.WriteOffDate, null)
+            );
+
+        return await _collection.Find(filter).ToListAsync(cancellationToken);
     }
 
     public async Task AddAsync(TransportEntity transport, CancellationToken cancellationToken)
