@@ -20,7 +20,7 @@ public class TechniciansController(IMediator mediator) : Controller
     }
 
     [HttpGet("{technicianId}/works-report")]
-    public async Task<ActionResult<TechnicianWorkDto>> GetWorksReport(
+    public async Task<IActionResult> GetWorksReport(
         Guid technicianId,
         [FromQuery] DateTime fromDate,
         [FromQuery] DateTime toDate,
