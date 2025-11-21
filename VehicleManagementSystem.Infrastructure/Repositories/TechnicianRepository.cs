@@ -22,6 +22,19 @@ public class TechnicianRepository : ITechnicianRepository
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
+    public async Task<TechnicianEntity?> GetByIdWithWorksAsync(Guid technicianId, DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
+    {
+        var technician = await _collection.Find(t => t.Id == technicianId).FirstOrDefaultAsync(cancellationToken);
+
+        if (technician is null) return null;
+
+        technician.RepairWorks = technician.RepairWorks?
+            .Where(rw => rw.Repair.RepairDate >= fromDate && rw.Repair.RepairDate <= toDate)
+            .ToList();
+
+        return technician;
+    }
+
     public async Task AddAsync(TechnicianEntity technician, CancellationToken cancellationToken)
     {
         await _collection.InsertOneAsync(technician, cancellationToken: cancellationToken);
