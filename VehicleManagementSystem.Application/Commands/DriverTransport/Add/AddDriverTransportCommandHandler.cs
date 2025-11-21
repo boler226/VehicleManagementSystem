@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using VehicleManagementSystem.Application.Exceptions;
 using VehicleManagementSystem.Domain.Entities;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Infrastructure.Exceptions;
@@ -14,6 +15,12 @@ public class AddDriverTransportCommandHandler(
         var transport = await manager.Transports.GetByIdAsync(request.TransportId, cancellationToken)
                         ?? throw new NotFoundException(nameof(TransportEntity), request.TransportId);
 
+        var existingAssignment = await manager.DriverTransports
+            .GetByIdAsync(driver.Id, transport.Id, cancellationToken);
+
+        if (existingAssignment is not null)
+            throw new TransportAlreadyAssignedToDriverException(driver.Id, transport.Id);
+
         var driverTransport = new DriverTransportEntity {
             DriverId = driver.Id,
             TransportId = transport.Id,
@@ -21,6 +28,9 @@ public class AddDriverTransportCommandHandler(
             Transport = transport
         };
 
+        transport.AcquisitionDate = DateTime.UtcNow;
+
+        await manager.Transports.UpdateAsync(transport, cancellationToken);
         await manager.DriverTransports.AddAsync(driverTransport, cancellationToken);
 
         return Unit.Value;

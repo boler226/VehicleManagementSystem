@@ -19,7 +19,7 @@ public class AddTransportCommandHandler(
             Type = request.Type,
             Capacity = request.Capacity,
             LoadCapacity = request.LoadCapacity,
-            IsWrittenOff = false,
+            IsWrittenOff = true
         };
 
         if (request.GarageId is not null) {

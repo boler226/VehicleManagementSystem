@@ -14,7 +14,6 @@ public class AddDriverCommandHandler(
         var driver = new DriverEntity {
             Id = Guid.NewGuid(),
             FullName = request.FullName,
-            LicenseNumber = request.LicenseNumber,
             TeamId = team.Id,
             Team = team
         };

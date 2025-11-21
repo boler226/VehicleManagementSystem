@@ -14,9 +14,6 @@ public class UpdateDriverCommandHandler(
         if (!string.IsNullOrWhiteSpace(request.FullName))
             driver.FullName = request.FullName;
 
-        if (!string.IsNullOrWhiteSpace(request.LicenseNumber))
-            driver.LicenseNumber = request.LicenseNumber;
-
         if (request.TeamId.HasValue) {
             var team = await manager.Teams.GetByIdAsync(request.TeamId.Value, cancellationToken)
                              ?? throw new NotFoundException(nameof(TeamEntity), request.TeamId);
