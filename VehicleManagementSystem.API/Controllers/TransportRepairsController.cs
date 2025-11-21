@@ -9,8 +9,9 @@ using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class TransportRepairsController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class TransportRepairsController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -18,7 +19,7 @@ public class TransportRepairsController(IMediator mediator) : ControllerBase {
         return Ok(result);
     }
 
-    [HttpGet]
+    [HttpGet("part-usage")]
     public async Task<IActionResult> GetPartUsage(
         [FromQuery] TransportEnum category)
     {

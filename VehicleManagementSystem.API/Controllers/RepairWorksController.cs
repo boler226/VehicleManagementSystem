@@ -7,8 +7,9 @@ using VehicleManagementSystem.Application.Queries.RepairWork.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class RepairWorksController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class RepairWorksController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

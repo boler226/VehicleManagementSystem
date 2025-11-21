@@ -7,8 +7,8 @@ using VehicleManagementSystem.Application.Queries.Driver.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class DriversController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class DriversController(IMediator mediator) : Controller {
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

@@ -7,8 +7,9 @@ using VehicleManagementSystem.Application.Queries.RouteAssignment.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class RouteAssignmentsController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class RouteAssignmentsController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

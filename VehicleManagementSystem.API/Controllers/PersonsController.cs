@@ -7,8 +7,9 @@ using VehicleManagementSystem.Application.Queries.Person.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class PersonsController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class PersonsController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

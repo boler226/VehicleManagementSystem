@@ -8,8 +8,9 @@ using VehicleManagementSystem.Application.Queries.GarageObject.GetGarageStatisti
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class GarageObjectsController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class GarageObjectsController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -17,7 +18,7 @@ public class GarageObjectsController(IMediator mediator) : ControllerBase {
         return Ok(result);
     }
 
-    [HttpGet]
+    [HttpGet("statistics")]
     public async Task<IActionResult> GetStatictics()
     {
         var result = await mediator.Send(new GetGarageStatisticsQuery());

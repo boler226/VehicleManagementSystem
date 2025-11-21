@@ -4,15 +4,24 @@ using VehicleManagementSystem.Application.Commands.Route.Add;
 using VehicleManagementSystem.Application.Commands.Route.Delete;
 using VehicleManagementSystem.Application.Commands.Route.Update;
 using VehicleManagementSystem.Application.Queries.Route.GetAll;
+using VehicleManagementSystem.Application.Queries.Route.GetByRoutes;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class RoutesController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class RoutesController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllRoutesQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("passenger-distribution")]
+    public async Task<IActionResult> GetPassengerDistribution([FromQuery] GetPassengerDistributionByRoutesQuery query)
+    {
+        var result = await mediator.Send(query);
         return Ok(result);
     }
 

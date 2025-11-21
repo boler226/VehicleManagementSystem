@@ -10,8 +10,9 @@ using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
-[Route("api/[controller]/[action]")]
-public class MileageRecordsController(IMediator mediator) : ControllerBase {
+[Route("api/[controller]")]
+public class MileageRecordsController(IMediator mediator) : Controller
+{
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -19,7 +20,7 @@ public class MileageRecordsController(IMediator mediator) : ControllerBase {
         return Ok(result);
     }
 
-    [HttpGet]
+    [HttpGet("milieage-records")]
     public async Task<ActionResult<List<MileageRecordDto>>> GetMileageRecords([FromQuery] GetMileageRecordByDateQuery query)
     {
         var result = await mediator.Send(query);
