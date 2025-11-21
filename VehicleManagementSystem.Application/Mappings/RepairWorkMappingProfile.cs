@@ -7,5 +7,6 @@ public class RepairWorkMappingProfile : Profile {
     public RepairWorkMappingProfile() {
         CreateMap<RepairWorkEntity, RepairWorkDto>();
         CreateMap<RepairWorkEntity, RepairWorkShortDto>();
+        CreateMap<RepairWorkEntity, RepairWorkItemDto>();
     }
 }

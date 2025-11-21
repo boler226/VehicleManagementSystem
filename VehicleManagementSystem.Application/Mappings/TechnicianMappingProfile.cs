@@ -7,5 +7,6 @@ public class TechnicianMappingProfile : Profile {
     public TechnicianMappingProfile() {
         CreateMap<TechnicianEntity, TechnicianShortDto>();
         CreateMap<TechnicianEntity, TechnicianDto>();
+        CreateMap<TechnicianEntity, TechnicianWorksReportDto>();
     }
 }

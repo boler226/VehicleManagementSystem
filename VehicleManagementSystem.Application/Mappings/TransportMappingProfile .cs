@@ -25,5 +25,6 @@ public class TransportMappingProfile : Profile {
            .ForMember(dest => dest.TotalCost, opt => opt.MapFrom(src => src.Repairs.Sum(r => r.Cost)));
 
         CreateMap<TransportEntity, TransportAcquisitionWriteOffDto>();
+        CreateMap<TransportEntity, CargoTransportReportDto>();
     }
 }
