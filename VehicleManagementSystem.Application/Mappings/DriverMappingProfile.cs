@@ -7,7 +7,7 @@ namespace VehicleManagementSystem.Application.Mappings;
 public class DriverMappingProfile : Profile {
     public DriverMappingProfile() {
         CreateMap<DriverEntity, DriverDto>()
-            .ForMember(dest => dest.Vehicles, opt => opt.MapFrom(src => src.Vechicles)); ;
+            .ForMember(dest => dest.Vechicles, opt => opt.MapFrom(src => src.Vechicles));
 
         CreateMap<DriverTransportEntity, TransportShortDto>()
             .ConstructUsing(src => new TransportShortDto {
@@ -19,5 +19,7 @@ public class DriverMappingProfile : Profile {
 
 
         CreateMap<DriverEntity, DriverShortDto>();
+        CreateMap<DriverEntity, DriverItemDto>()
+            .ForMember(dest => dest.TransportModels, opt => opt.MapFrom(src => src.Vechicles));
     }
 }

@@ -18,6 +18,18 @@ public class TeamRepository : ITeamRepository
         return await _collection.Find(t => t.Id == id).FirstOrDefaultAsync(cancellationToken);
     }
 
+    public async Task<TeamEntity?> GetByLeaderIdAsync(Guid leaderId, CancellationToken cancellationToken)
+    {
+        var filter = Builders<TeamEntity>.Filter.Or(
+            Builders<TeamEntity>.Filter.Eq(t => t.ForemanId, leaderId),
+            Builders<TeamEntity>.Filter.Eq(t => t.MasterId, leaderId),
+            Builders<TeamEntity>.Filter.Eq(t => t.SectionHeadId, leaderId),
+            Builders<TeamEntity>.Filter.Eq(t => t.WorkshopHeadId, leaderId)
+        );
+
+        return await _collection.Find(filter).FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<TeamEntity?> GetByPersonIdAsync(Guid personId, CancellationToken cancellationToken)
     {
         return await _collection.Find(t =>

@@ -34,7 +34,7 @@ public class UpdateTeamCommandHandler(
             }
         }
 
-        if (request.Name is not null) 
+        if (!string.IsNullOrEmpty(request.Name)) 
             team.Name = request.Name;
 
         await manager.Teams.UpdateAsync(team, cancellationToken);

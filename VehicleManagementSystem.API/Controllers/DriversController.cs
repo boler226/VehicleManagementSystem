@@ -4,6 +4,7 @@ using VehicleManagementSystem.Application.Commands.Driver.Add;
 using VehicleManagementSystem.Application.Commands.Driver.Delete;
 using VehicleManagementSystem.Application.Commands.Driver.Update;
 using VehicleManagementSystem.Application.Queries.Driver.GetAll;
+using VehicleManagementSystem.Application.Queries.Driver.GetByTransportModels;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
@@ -13,6 +14,13 @@ public class DriversController(IMediator mediator) : Controller {
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllDriversQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("driver-models")]
+    public async Task<IActionResult> GetDriversTransportReport([FromQuery] GetDriversByTransportModelsQuery query)
+    {
+        var result = await mediator.Send(query);
         return Ok(result);
     }
 

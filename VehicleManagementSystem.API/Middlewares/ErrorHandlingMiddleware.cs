@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Exceptions;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 

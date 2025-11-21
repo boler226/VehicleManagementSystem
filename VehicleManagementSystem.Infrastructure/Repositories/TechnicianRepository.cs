@@ -22,6 +22,10 @@ public class TechnicianRepository : ITechnicianRepository
         return await _collection.Find(_ => true).ToListAsync(cancellationToken);
     }
 
+    public async Task<IEnumerable<TechnicianEntity>> GetByTeamIdAsync(Guid teamId, CancellationToken cancellationToken)
+    {
+        return await _collection.Find(t => t.TeamId == teamId).ToListAsync(cancellationToken);
+    }
     public async Task<TechnicianEntity?> GetByIdWithWorksAsync(Guid technicianId, DateTime fromDate, DateTime toDate, CancellationToken cancellationToken)
     {
         var technician = await _collection.Find(t => t.Id == technicianId).FirstOrDefaultAsync(cancellationToken);

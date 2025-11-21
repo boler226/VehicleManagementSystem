@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Team.Add;
 using VehicleManagementSystem.Application.Commands.Team.Delete;
 using VehicleManagementSystem.Application.Commands.Team.Update;
+using VehicleManagementSystem.Application.DTOs.Team;
 using VehicleManagementSystem.Application.Queries.Team.GetAll;
+using VehicleManagementSystem.Application.Queries.Team.GetSubordinates;
 
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
@@ -14,6 +16,13 @@ public class TeamsController(IMediator mediator) : Controller
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTeamsQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("{leaderId}/subordinates")]
+    public async Task<ActionResult<SubordinatesReportDto>> GetSubordinates(Guid leaderId)
+    {
+        var result = await mediator.Send(new GetSubordinatesQuery(leaderId));
         return Ok(result);
     }
 
