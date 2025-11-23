@@ -1,0 +1,21 @@
+<div class="table-container mb-4">
+  <h4>{{ title }}</h4>
+  <table class="table table-striped table-bordered">
+    <thead>
+    <tr>
+      @for (col of columns; track $index) {
+        <th>{{ col.header }}</th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @for (row of data; track row.id) {
+        <tr>
+          @for (col of columns; track $index) {
+            <td>{{ row[col.field] }}</td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
