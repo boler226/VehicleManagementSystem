@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.DriverTransport.Add;
 using VehicleManagementSystem.Application.Commands.DriverTransport.Delete;
@@ -6,6 +7,7 @@ using VehicleManagementSystem.Application.Commands.DriverTransport.Delete;
 namespace VehicleManagementSystem.API.Controllers; 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "OperatorSD,AdminSD")]
 public class DriverTransportsController(IMediator mediator) : Controller
 {
     [HttpPost]

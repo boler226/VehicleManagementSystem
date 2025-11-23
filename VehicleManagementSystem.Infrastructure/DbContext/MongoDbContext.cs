@@ -30,5 +30,4 @@ public class MongoDbContext {
     public IMongoCollection<RepairWorkEntity> RepairWorks => _database.GetCollection<RepairWorkEntity>("RepairWorks");
     public IMongoCollection<MileageRecordEntity> Mileages => _database.GetCollection<MileageRecordEntity>("Mileages");
     public IMongoCollection<UserEntity> Users => _database.GetCollection<UserEntity>("Users");
-    public IMongoCollection<RoleEntity> Roles => _database.GetCollection<RoleEntity>("Roles");
 }

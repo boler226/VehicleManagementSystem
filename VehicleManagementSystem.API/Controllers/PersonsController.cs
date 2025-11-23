@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Person.Add;
 using VehicleManagementSystem.Application.Commands.Person.Delete;
@@ -6,11 +7,13 @@ using VehicleManagementSystem.Application.Commands.Person.Update;
 using VehicleManagementSystem.Application.Queries.Person.GetAll;
 
 namespace VehicleManagementSystem.API.Controllers; 
+
 [ApiController]
 [Route("api/[controller]")]
 public class PersonsController(IMediator mediator) : Controller
 {
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllPersonsQuery());
@@ -18,6 +21,7 @@ public class PersonsController(IMediator mediator) : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddPersonCommand command)
     {
         var result = await mediator.Send(command);
@@ -25,6 +29,8 @@ public class PersonsController(IMediator mediator) : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
+
     public async Task<IActionResult> Update(UpdatePersonCommand command)
     {
         var result = await mediator.Send(command);
@@ -32,6 +38,8 @@ public class PersonsController(IMediator mediator) : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
+
     public async Task<IActionResult> Delete(DeletePersonCommand command)
     {
         var result = await mediator.Send(command);

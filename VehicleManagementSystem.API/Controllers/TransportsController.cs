@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 using VehicleManagementSystem.Application.Commands.Transport.DeleteTransport;
@@ -15,6 +16,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class TransportsController(IMediator mediator) : Controller
 {
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTransportsQuery());
@@ -22,13 +24,15 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpGet("cargo-report")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetCargoReport([FromQuery] GetCargoTransportReportQuery query)
     {
         var result = await mediator.Send(query);
         return Ok(result);
     }
 
-    [HttpGet("acquisition-writeoff")] 
+    [HttpGet("acquisition-writeoff")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAcquisitionWriteOff([FromQuery] GetTransportAcquisitionWriteOffQuery query)
     {
         var result = await mediator.Send(query);
@@ -36,6 +40,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpGet("repair-stats")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetRepairStats([FromQuery] GetTransportRepairStatsQuery query)
     {
         var result = await mediator.Send(query);
@@ -43,6 +48,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddTransportCommand command)
     {
         var result = await mediator.Send(command);
@@ -50,6 +56,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Update(UpdateTransportCommand command)
     {
         var result = await mediator.Send(command);
@@ -57,6 +64,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await mediator.Send(new DeleteTransportCommand(id));

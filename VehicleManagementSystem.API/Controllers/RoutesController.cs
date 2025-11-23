@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Route.Add;
 using VehicleManagementSystem.Application.Commands.Route.Delete;
@@ -7,11 +8,13 @@ using VehicleManagementSystem.Application.Queries.Route.GetAll;
 using VehicleManagementSystem.Application.Queries.Route.GetByRoutes;
 
 namespace VehicleManagementSystem.API.Controllers; 
+
 [ApiController]
 [Route("api/[controller]")]
 public class RoutesController(IMediator mediator) : Controller
 {
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllRoutesQuery());
@@ -19,6 +22,7 @@ public class RoutesController(IMediator mediator) : Controller
     }
 
     [HttpGet("passenger-distribution")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetPassengerDistribution([FromQuery] GetPassengerDistributionByRoutesQuery query)
     {
         var result = await mediator.Send(query);
@@ -26,6 +30,7 @@ public class RoutesController(IMediator mediator) : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddRouteCommand command)
     {
         var result = await mediator.Send(command);
@@ -33,6 +38,7 @@ public class RoutesController(IMediator mediator) : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Update(UpdateRouteCommand command)
     {
         var result = await mediator.Send(command);
@@ -40,6 +46,7 @@ public class RoutesController(IMediator mediator) : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Delete(DeleteRouteCommand command)
     {
         var result = await mediator.Send(command);

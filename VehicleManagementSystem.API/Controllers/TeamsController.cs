@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Team.Add;
 using VehicleManagementSystem.Application.Commands.Team.Delete;
@@ -8,11 +9,13 @@ using VehicleManagementSystem.Application.Queries.Team.GetAll;
 using VehicleManagementSystem.Application.Queries.Team.GetSubordinates;
 
 namespace VehicleManagementSystem.API.Controllers; 
+
 [ApiController]
 [Route("api/[controller]")]
 public class TeamsController(IMediator mediator) : Controller
 {
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTeamsQuery());
@@ -20,13 +23,15 @@ public class TeamsController(IMediator mediator) : Controller
     }
 
     [HttpGet("{leaderId}/subordinates")]
-    public async Task<ActionResult<SubordinatesReportDto>> GetSubordinates(Guid leaderId)
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    public async Task<IActionResult> GetSubordinates(Guid leaderId)
     {
         var result = await mediator.Send(new GetSubordinatesQuery(leaderId));
         return Ok(result);
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddTeamCommand command)
     {
         var result = await mediator.Send(command);
@@ -34,6 +39,7 @@ public class TeamsController(IMediator mediator) : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Update(UpdateTeamCommand command)
     {
         var result = await mediator.Send(command);
@@ -41,6 +47,7 @@ public class TeamsController(IMediator mediator) : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Delete(DeleteTeamCommand command)
     {
         var result = await mediator.Send(command);

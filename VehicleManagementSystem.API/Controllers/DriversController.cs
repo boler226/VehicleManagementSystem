@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Driver.Add;
 using VehicleManagementSystem.Application.Commands.Driver.Delete;
@@ -7,10 +8,13 @@ using VehicleManagementSystem.Application.Queries.Driver.GetAll;
 using VehicleManagementSystem.Application.Queries.Driver.GetByTransportModels;
 
 namespace VehicleManagementSystem.API.Controllers; 
+
 [ApiController]
 [Route("api/[controller]")]
-public class DriversController(IMediator mediator) : Controller {
+public class DriversController(IMediator mediator) : Controller 
+{
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllDriversQuery());
@@ -18,6 +22,7 @@ public class DriversController(IMediator mediator) : Controller {
     }
 
     [HttpGet("driver-models")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetDriversTransportReport([FromQuery] GetDriversByTransportModelsQuery query)
     {
         var result = await mediator.Send(query);
@@ -25,6 +30,7 @@ public class DriversController(IMediator mediator) : Controller {
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddDriverCommand command)
     {
         var result = await mediator.Send(command);
@@ -32,6 +38,7 @@ public class DriversController(IMediator mediator) : Controller {
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Update(UpdateDriverCommand command)
     {
         var result = await mediator.Send(command);
@@ -39,6 +46,7 @@ public class DriversController(IMediator mediator) : Controller {
     }
 
     [HttpDelete]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Delete(DeleteDriverCommand command)
     {
         var result = await mediator.Send(command);

@@ -16,4 +16,6 @@ public interface IRepositoryManager
     IRouteAssignmentRepository RouteAssignments { get; }
     IMileageRecordRepository MileageRecords { get; }
     IGarageObjectRepository GarageObjects { get; }
+    IUserRepository Users { get; }
+    IRegistrationRequestRepository RegistrationRequest { get; }
 }

@@ -15,7 +15,9 @@ public class RepositoryManager(
     IRouteRepository routeRepository,
     IRouteAssignmentRepository assignmentRepository,
     IMileageRecordRepository recordRepository,
-    IGarageObjectRepository objectRepository
+    IGarageObjectRepository objectRepository,
+    IUserRepository userRepository,
+    IRegistrationRequestRepository requestRepository
     ) : IRepositoryManager 
 {
     public IDriverRepository Drivers => driverRepository;
@@ -30,4 +32,6 @@ public class RepositoryManager(
     public IRouteAssignmentRepository RouteAssignments => assignmentRepository;
     public IMileageRecordRepository MileageRecords => recordRepository;
     public IGarageObjectRepository GarageObjects => objectRepository;
+    public IUserRepository Users => userRepository;
+    public IRegistrationRequestRepository RegistrationRequest => requestRepository;
 }

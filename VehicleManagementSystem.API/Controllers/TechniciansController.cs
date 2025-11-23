@@ -1,18 +1,20 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Technician.Add;
 using VehicleManagementSystem.Application.Commands.Technician.Delete;
 using VehicleManagementSystem.Application.Commands.Technician.Update;
-using VehicleManagementSystem.Application.DTOs.Technician;
 using VehicleManagementSystem.Application.Queries.Technician.GetAll;
 using VehicleManagementSystem.Application.Queries.Technician.GetWorks;
 
 namespace VehicleManagementSystem.API.Controllers; 
+
 [ApiController]
 [Route("api/[controller]")]
 public class TechniciansController(IMediator mediator) : Controller
 {
     [HttpGet]
+    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTechniciansQuery());
@@ -20,6 +22,7 @@ public class TechniciansController(IMediator mediator) : Controller
     }
 
     [HttpGet("{technicianId}/works-report")]
+    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetWorksReport(
         Guid technicianId,
         [FromQuery] DateTime fromDate,
@@ -31,6 +34,7 @@ public class TechniciansController(IMediator mediator) : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Add(AddTechnicianCommand command)
     {
         var result = await mediator.Send(command);
@@ -38,6 +42,7 @@ public class TechniciansController(IMediator mediator) : Controller
     }
 
     [HttpPut]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Update(UpdateTechnicianCommand command)
     {
         var result = await mediator.Send(command);
@@ -45,6 +50,7 @@ public class TechniciansController(IMediator mediator) : Controller
     }
 
     [HttpDelete]
+    [Authorize(Roles = "OperatorSD,AdminSD")]
     public async Task<IActionResult> Delete(DeleteTechnicianCommand command)
     {
         var result = await mediator.Send(command);
