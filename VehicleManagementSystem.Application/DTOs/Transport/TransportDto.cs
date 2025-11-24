@@ -12,7 +12,7 @@ public class TransportDto
     public string LicensePlate { get; set; } = null!;
     public string Brand { get; set; } = null!;
     public string Model { get; set; } = null!;
-    public TransportEnum Type { get; set; }
+    public string Type { get; set; } = null!;
     public int? Capacity { get; set; }
     public double? LoadCapacity { get; set; }
 

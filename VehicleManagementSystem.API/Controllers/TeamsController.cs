@@ -15,7 +15,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class TeamsController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTeamsQuery());
@@ -23,7 +23,7 @@ public class TeamsController(IMediator mediator) : Controller
     }
 
     [HttpGet("{leaderId}/subordinates")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetSubordinates(Guid leaderId)
     {
         var result = await mediator.Send(new GetSubordinatesQuery(leaderId));

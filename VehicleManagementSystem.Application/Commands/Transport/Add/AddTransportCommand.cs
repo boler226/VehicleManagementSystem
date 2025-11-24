@@ -8,7 +8,7 @@ public record AddTransportCommand(
     string LicensePlate,
     string Brand,
     string Model,
-    TransportEnum Type,
+    string Type,
     int? Capacity,
     double? LoadCapacity
 ) : IRequest<Guid>;

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
+using VehicleManagementSystem.Domain.Enums;
 using VehicleManagementSystem.Domain.Interfaces;
-using VehicleManagementSystem.Domain.Interfaces.Repositories;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
 namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport;
@@ -11,12 +11,15 @@ public class AddTransportCommandHandler(
     ) : IRequestHandler<AddTransportCommand, Guid>
 {
     public async Task<Guid> Handle(AddTransportCommand request, CancellationToken cancellationToken) {
+        if (!Enum.TryParse<TransportEnum>(request.Type, ignoreCase: true, out var parsedType))
+            throw new Exception($"Invalid transport type: {request.Type}");
+
         var transport = new TransportEntity {
             Id = Guid.NewGuid(),
             LicensePlate = request.LicensePlate,
             Brand = request.Brand,
             Model = request.Model,
-            Type = request.Type,
+            Type = parsedType,
             Capacity = request.Capacity,
             LoadCapacity = request.LoadCapacity,
             IsWrittenOff = true

@@ -29,7 +29,11 @@ export class LoginComponent {
     const { email, password } = this.form.value;
 
     this.authService.login(email!, password!).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
+      next: () => {
+        this.router.navigate(['/grids/transport'])
+        this.error = '';
+        console.log('login success');
+      },
       error: (err) => {
         if (err.status === 404) {
           this.error = 'Login endpoint not found. Please contact support.';

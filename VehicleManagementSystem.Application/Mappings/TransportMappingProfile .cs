@@ -12,7 +12,8 @@ public class TransportMappingProfile : Profile {
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Routes, opt => opt.MapFrom(src => src.Assignments));
 
-        CreateMap<TransportEntity, TransportDto>();
+        CreateMap<TransportEntity, TransportDto>()
+            .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.ToString())); 
         CreateMap<TransportEntity, TransportShortDto>();
 
         CreateMap<DriverTransportEntity, DriverShortDto>()

@@ -15,7 +15,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class MileageRecordsController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllMileageRecordsQuery());
@@ -23,7 +23,7 @@ public class MileageRecordsController(IMediator mediator) : Controller
     }
 
     [HttpGet("milieage-records")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<ActionResult<List<MileageRecordDto>>> GetMileageRecords([FromQuery] GetMileageRecordByDateQuery query)
     {
         var result = await mediator.Send(query);

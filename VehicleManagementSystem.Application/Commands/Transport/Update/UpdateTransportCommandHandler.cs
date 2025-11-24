@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using VehicleManagementSystem.Domain.Entities;
+using VehicleManagementSystem.Domain.Enums;
 using VehicleManagementSystem.Domain.Interfaces;
 using VehicleManagementSystem.Infrastructure.Exceptions;
 
@@ -22,8 +23,17 @@ public class UpdateTransportCommandHandler(
         if (!string.IsNullOrWhiteSpace(request.LicensePlate))
             transport.LicensePlate = request.LicensePlate;
 
-        if (request.Type.HasValue)
-            transport.Type = request.Type.Value;
+        if (!string.IsNullOrWhiteSpace(request.Type))
+        {
+            if (Enum.TryParse<TransportEnum>(request.Type, ignoreCase: true, out var parsedType))
+            {
+                transport.Type = parsedType;
+            }
+            else
+            {
+                throw new Exception($"Invalid transport type: {request.Type}");
+            }
+        }
 
         if (request.Capacity is not null)
             transport.Capacity = request.Capacity;

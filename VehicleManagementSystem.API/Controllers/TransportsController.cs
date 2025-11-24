@@ -16,7 +16,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class TransportsController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllTransportsQuery());
@@ -24,7 +24,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpGet("cargo-report")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetCargoReport([FromQuery] GetCargoTransportReportQuery query)
     {
         var result = await mediator.Send(query);
@@ -32,7 +32,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpGet("acquisition-writeoff")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAcquisitionWriteOff([FromQuery] GetTransportAcquisitionWriteOffQuery query)
     {
         var result = await mediator.Send(query);
@@ -40,7 +40,7 @@ public class TransportsController(IMediator mediator) : Controller
     }
 
     [HttpGet("repair-stats")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetRepairStats([FromQuery] GetTransportRepairStatsQuery query)
     {
         var result = await mediator.Send(query);

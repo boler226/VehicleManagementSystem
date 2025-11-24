@@ -13,7 +13,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class RouteAssignmentsController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllRouteAssignmentsQuery());

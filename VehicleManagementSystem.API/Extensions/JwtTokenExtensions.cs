@@ -24,7 +24,9 @@ public static class JwtTokenExtensions
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(configuration["Jwt:Secret"] ?? ""))
+                    Encoding.UTF8.GetBytes(configuration["Jwt:Secret"] ?? "")),
+
+                RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
             };
         });
 

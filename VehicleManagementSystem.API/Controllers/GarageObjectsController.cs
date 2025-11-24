@@ -14,7 +14,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class GarageObjectsController(IMediator mediator) : Controller
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllGarageObjectQuery());
@@ -22,7 +22,7 @@ public class GarageObjectsController(IMediator mediator) : Controller
     }
 
     [HttpGet("statistics")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetStatictics()
     {
         var result = await mediator.Send(new GetGarageStatisticsQuery());

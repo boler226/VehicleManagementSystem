@@ -14,7 +14,7 @@ namespace VehicleManagementSystem.API.Controllers;
 public class DriversController(IMediator mediator) : Controller 
 {
     [HttpGet]
-    [Authorize(Roles = "Guest,Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Guest,Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetAll()
     {
         var result = await mediator.Send(new GetAllDriversQuery());
@@ -22,7 +22,7 @@ public class DriversController(IMediator mediator) : Controller
     }
 
     [HttpGet("driver-models")]
-    [Authorize(Roles = "Authorised,OperatorSD,AdminSD")]
+    [Authorize(Roles = "Authorized,OperatorSD,AdminSD")]
     public async Task<IActionResult> GetDriversTransportReport([FromQuery] GetDriversByTransportModelsQuery query)
     {
         var result = await mediator.Send(query);
