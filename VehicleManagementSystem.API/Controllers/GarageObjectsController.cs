@@ -45,11 +45,11 @@ public class GarageObjectsController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
-    public async Task<IActionResult> Delete(DeleteGarageObjectCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeleteGarageObjectCommand(id));
         return Ok(result);
     }
 }

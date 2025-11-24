@@ -4,6 +4,7 @@ import {LoginComponent} from './features/auth/login/login.component';
 import {TransportGridComponent} from './features/grids/transport-grid/transport-grid.component';
 import {DriverGridComponent} from './features/grids/driver-grid/driver-grid.component';
 import {TeamGridComponent} from './features/grids/team-grid/team-grid.component';
+import {TechnicianGridComponent} from './features/grids/technician-grid/technician-grid.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   { path: 'grids/transport', component: TransportGridComponent },
   { path: 'grids/driver', component: DriverGridComponent },
   { path: 'grids/team', component: TeamGridComponent },
+  { path: 'grids/technician', component: TechnicianGridComponent },
   { path: '', redirectTo: 'grids/transport', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard/overview' }
 ];
