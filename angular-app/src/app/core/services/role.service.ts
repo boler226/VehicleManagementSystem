@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class RoleService {
   getRole(): string | null {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (!token) return null;
 
     const decoded: any = jwtDecode(token);

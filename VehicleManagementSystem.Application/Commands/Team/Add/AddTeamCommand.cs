@@ -1,6 +1,5 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
+
 namespace VehicleManagementSystem.Application.Commands.Team.Add; 
 public record AddTeamCommand(
     string Name,

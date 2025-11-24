@@ -1,0 +1,48 @@
+<app-table
+  [title]="'Водії'"
+  [columns]="columns"
+  [data]="drivers$ | async"
+  [canCrud]="canCrud"
+  (edit)="updateDriver($event)"
+  (delete)="deleteDriver($event)" />
+
+@if (showUpdateForm && canCrud) {
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редагування водія</h5>
+          <button type="button" class="btn-close" (click)="closeForm()"></button>
+        </div>
+        <div class="modal-body">
+          <app-dynamic-form
+            [fields]="updateFields"
+            [initialData]="selectedDriver"
+            (save)="onUpdateSave($event)" />
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@if (canCrud) {
+  <button class="btn btn-primary" (click)="openAddForm()">Додати водія</button>
+}
+
+@if (showAddForm && canCrud) {
+  <div class="modal fade show d-block" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Додавання водія</h5>
+          <button type="button" class="btn-close" (click)="closeAddForm()"></button>
+        </div>
+        <div class="modal-body">
+          <app-dynamic-form
+            [fields]="addFields"
+            (save)="onAddSave($event)" />
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using VehicleManagementSystem.Application.Commands.Team.Add;
 using VehicleManagementSystem.Application.Commands.Team.Delete;
 using VehicleManagementSystem.Application.Commands.Team.Update;
-using VehicleManagementSystem.Application.DTOs.Team;
 using VehicleManagementSystem.Application.Queries.Team.GetAll;
 using VehicleManagementSystem.Application.Queries.Team.GetSubordinates;
 
@@ -46,11 +45,11 @@ public class TeamsController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
-    public async Task<IActionResult> Delete(DeleteTeamCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeleteTeamCommand(id));
         return Ok(result);
     }
 }

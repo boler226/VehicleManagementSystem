@@ -1,9 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-3">
-  <a class="btn btn-outline-primary me-3" [routerLink]="['/dashboard/overview']">
-    Data Overview
-  </a>
+  <div class="dropdown me-3">
+    <button
+      class="btn btn-outline-secondary dropdown-toggle"
+      type="button"
+      id="gridsDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false">
+      Grids
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="gridsDropdown">
+      <li>
+        <a class="dropdown-item" [routerLink]="['/grids/transport']">Transport Grid</a>
+      </li>
+      <li>
+        <a class="dropdown-item" [routerLink]="['/grids/driver']">Driver Grid</a>
+      </li>
+    </ul>
+  </div>
 
   <div class="ms-auto">
-    <button class="btn btn-primary"[routerLink]="['/login']">Login</button>
+    <button class="btn btn-primary" [routerLink]="['/login']">Login</button>
   </div>
 </nav>

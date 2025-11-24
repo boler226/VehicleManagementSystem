@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, inject} from '@angular/core';
-import {Transport} from '../../../core/models/transport';
+import {Transport} from '../../../core/models/queries/transport-query';
+import {TransportEnum} from '../../../core/models/enums/transport-enum';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {TransportService} from '../../../core/services/transport.service';
 import {TableComponent} from '../../../shared/table/table.component';
@@ -8,7 +9,6 @@ import {FormField} from '../../../core/models/form-config';
 import {DynamicFormComponent} from '../../../shared/forms/dynamic-form/dynamic-form.component';
 import {
   AddTransportCommand,
-  TransportEnum,
   UpdateTransportCommand
 } from '../../../core/models/commands/transport-commands';
 import {RoleService} from '../../../core/services/role.service';
@@ -35,7 +35,7 @@ export class TransportGridComponent {
   showAddForm = false;
 
   columns = [
-    { field: 'id', header: 'ID' },
+    { field: 'id', header: '#' },
     { field: 'licensePlate', header: 'Номерний знак' },
     { field: 'brand', header: 'Марка' },
     { field: 'model', header: 'Модель' },

@@ -15,7 +15,7 @@ export class AuthService {
       .post(`${this.apiUrl}/login`, { email, password }, { responseType: 'text' })
       .pipe(
         tap(token => {
-          localStorage.setItem('token', token);
+          localStorage.setItem('authToken', token);
         })
       );
   }

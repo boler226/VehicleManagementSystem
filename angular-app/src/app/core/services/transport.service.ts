@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Transport} from '../models/transport';
+import {Transport} from '../models/queries/transport-query';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AddTransportCommand, UpdateTransportCommand} from '../models/commands/transport-commands';

@@ -36,4 +36,9 @@
   @if (error) {
     <p class="text-danger mt-3">{{ error }}</p>
   }
+
+  <p class="text-center mt-3">
+    Ще не маєте акаунта?
+    <a [routerLink]="['/register']" class="text-primary">Зареєструватися</a>
+  </p>
 </div>
