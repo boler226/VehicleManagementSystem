@@ -49,7 +49,6 @@ export class DriverGridComponent {
 
   constructor() {
     this.refresh();
-    this.drivers$.forEach(d => console.log(d));
   }
 
   openAddForm() {

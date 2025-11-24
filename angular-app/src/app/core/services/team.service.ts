@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Team} from '../models/queries/driver-query';
+import {Team} from '../models/queries/team-query';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AddTeamCommand, UpdateTeamCommand} from '../models/commands/team-commands';

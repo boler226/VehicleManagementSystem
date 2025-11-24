@@ -49,11 +49,11 @@ public class TechniciansController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
-    public async Task<IActionResult> Delete(DeleteTechnicianCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeleteTechnicianCommand(id));
         return Ok(result);
     }
 }
