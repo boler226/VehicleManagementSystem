@@ -12,5 +12,5 @@ export interface TeamShort {
 
 export interface TransportShort {
   id: string;
-  name: string;
+  licensePlate: string;
 }

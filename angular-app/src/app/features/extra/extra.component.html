@@ -1,0 +1,11 @@
+<div class="container mt-4">
+  <div class="d-flex flex-wrap justify-content-center gap-4">
+    @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
+      <a
+        class="btn btn-primary btn-lg extra-btn"
+        [routerLink]="['/extra', i]">
+        Запит {{ i }}
+      </a>
+    }
+  </div>
+</div>

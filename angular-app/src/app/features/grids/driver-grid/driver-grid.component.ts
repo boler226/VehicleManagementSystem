@@ -39,12 +39,12 @@ export class DriverGridComponent {
 
   updateFields: FormField[] = [
     { field: 'fullName', label: 'ПІБ', type: 'text' },
-    { field: 'teamId', label: 'Команда', type: 'text' } // можна зробити select
+    { field: 'teamId', label: 'Команда', type: 'text' }
   ];
 
   addFields: FormField[] = [
     { field: 'fullName', label: 'ПІБ', type: 'text' },
-    { field: 'team.id', label: 'Команда', type: 'text' }
+    { field: 'teamId', label: 'Команда', type: 'text' }
   ];
 
   constructor() {

@@ -11,10 +11,14 @@ import {
   RegistrationRequestGridComponent
 } from './features/grids/registration-request-grid/registration-request-grid.component';
 import {PersonGridComponent} from './features/grids/person-grid/person-grid.component';
+import {DriverTransportsGridComponent} from './features/grids/driver-transports-grid/driver-transports-grid.component';
+import {operatorGuard} from './core/guards/operator-guard';
+import {ExtraComponent} from './features/extra/extra.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'extra', component: ExtraComponent },
   { path: 'grids/transport', component: TransportGridComponent },
   { path: 'grids/driver', component: DriverGridComponent },
   { path: 'grids/team', component: TeamGridComponent },
@@ -25,6 +29,11 @@ export const routes: Routes = [
     path: 'grids/registration-requests',
     component: RegistrationRequestGridComponent,
     canActivate: [adminGuard]
+  },
+  {
+    path: 'grids/driver-transport',
+    component: DriverTransportsGridComponent,
+    canActivate: [adminGuard || operatorGuard]
   },
   { path: '', redirectTo: 'grids/transport', pathMatch: 'full' },
   { path: '**', redirectTo: 'grids/transport' }
