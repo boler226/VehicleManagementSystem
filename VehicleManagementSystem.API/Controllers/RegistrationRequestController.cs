@@ -19,17 +19,17 @@ public class RegistrationRequestController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpPost("approve-registration")]
-    public async Task<IActionResult> Approve([FromBody] ApproveRegistrationCommand command, CancellationToken cancellationToken)
+    [HttpPost("{id}/approve-registration")]
+    public async Task<IActionResult> Approve(Guid id, CancellationToken cancellationToken)
     {
-        var id = await mediator.Send(command, cancellationToken);
-        return Ok(id);
+        var result = await mediator.Send(new ApproveRegistrationCommand(id), cancellationToken);
+        return Ok(result);
     }
 
-    [HttpPost("reject-registration")]
-    public async Task<IActionResult> Reject([FromBody] RejectRegistrationCommand command, CancellationToken cancellationToken)
+    [HttpPost("{id}/reject-registration")]
+    public async Task<IActionResult> Reject(Guid id, CancellationToken cancellationToken)
     {
-        var result = await mediator.Send(command, cancellationToken);
+        var result = await mediator.Send(new RejectRegistrationCommand(id), cancellationToken);
         return Ok(result);
     }
 }

@@ -1,0 +1,16 @@
+<app-table
+  [title]="'Заявки на реєстрацію'"
+  [columns]="columns"
+  [data]="requests$ | async"
+  [showCrud]="false"
+  [canCrud]="canCrud">
+
+  <ng-template #actions let-row>
+    <button class="btn btn-sm btn-success me-2" (click)="approveRequest(row)">
+      Схвалити
+    </button>
+    <button class="btn btn-sm btn-danger" (click)="rejectRequest(row)">
+      Відхилити
+    </button>
+  </ng-template>
+</app-table>

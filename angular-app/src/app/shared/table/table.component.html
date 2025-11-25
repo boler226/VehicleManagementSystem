@@ -15,11 +15,18 @@
           @for (col of columns; track $index) {
             <td>{{ row[col.field] }}</td>
           }
+
           @if (canCrud) {
-            <td>
-              <button class="btn btn-warning btn-sm me-2" (click)="onEdit(row)">Змінити</button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(row)">Видалити</button>
-            </td>
+            @if (showCrud) {
+              <td>
+                <button class="btn btn-warning btn-sm me-2" (click)="onEdit(row)">Змінити</button>
+                <button class="btn btn-danger btn-sm" (click)="onDelete(row)">Видалити</button>
+              </td>
+            } @else {
+              <td>
+                <ng-container *ngTemplateOutlet="actionsTemplate; context: {$implicit: row}"></ng-container>
+              </td>
+            }
           } @else {
             <td>
               <p class="text-warning">Немає доступу</p>
@@ -27,7 +34,6 @@
           }
         </tr>
       }
-
     </tbody>
   </table>
 </div>

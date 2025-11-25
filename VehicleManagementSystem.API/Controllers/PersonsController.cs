@@ -37,12 +37,12 @@ public class PersonsController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
 
-    public async Task<IActionResult> Delete(DeletePersonCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeletePersonCommand(id));
         return Ok(result);
     }
 }

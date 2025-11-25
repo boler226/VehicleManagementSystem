@@ -12,6 +12,10 @@ export class RoleService {
     return decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ?? null;
   }
 
+  hasRole(role: string): boolean {
+    return this.getRole() === role;
+  }
+
   hasCrudAccess(): boolean {
     const role = this.getRole();
     return role === 'AdminSD' || role === 'OperatorSD';
