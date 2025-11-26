@@ -45,11 +45,11 @@ public class RoutesController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
-    public async Task<IActionResult> Delete(DeleteRouteCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeleteRouteCommand(id));
         return Ok(result);
     }
 }

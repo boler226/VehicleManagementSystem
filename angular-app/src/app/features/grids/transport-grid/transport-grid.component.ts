@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, inject} from '@angular/core';
-import {Transport} from '../../../core/models/queries/transport-query';
+import {GarageObjectShort, Transport} from '../../../core/models/queries/transport-query';
 import {TransportEnum} from '../../../core/models/enums/transport-enum';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {TransportService} from '../../../core/services/transport.service';
@@ -12,6 +12,8 @@ import {
   UpdateTransportCommand
 } from '../../../core/models/commands/transport-commands';
 import {RoleService} from '../../../core/services/role.service';
+import {GarageObjectService} from '../../../core/services/garage-object.service';
+import {GarageObject} from '../../../core/models/queries/garage-object-query';
 
 @Component({
   selector: 'app-transport-grid',
@@ -25,9 +27,12 @@ import {RoleService} from '../../../core/services/role.service';
 })
 export class TransportGridComponent {
   private transportService = inject(TransportService);
+  private garageService = inject(GarageObjectService);
   private roleService = inject(RoleService);
   private cdr = inject(ChangeDetectorRef);
   private transportsSubject = new BehaviorSubject<Transport[]>([]);
+
+  garages: GarageObject[] = [];
   transports$: Observable<Transport[]> = this.transportsSubject.asObservable();
 
   selectedTransport: Transport | null = null;
@@ -45,6 +50,7 @@ export class TransportGridComponent {
   ];
 
   updateFields: FormField[] = [
+    { field: 'garageId', label: 'Гараж', type: 'select', options: [] },
     { field: 'licensePlate', label: 'Номерний знак', type: 'text' },
     { field: 'brand', label: 'Марка', type: 'text' },
     { field: 'model', label: 'Модель', type: 'text' },
@@ -52,13 +58,16 @@ export class TransportGridComponent {
       field: 'type',
       label: 'Тип',
       type: 'select',
-      options: Object.keys(TransportEnum).filter(k => isNaN(Number(k)))
+      options: Object.keys(TransportEnum)
+        .filter(k => isNaN(Number(k)))
+        .map(k => ({ key: k, value: k }))
     },
     { field: 'capacity', label: 'Місткість', type: 'number' },
     { field: 'loadCapacity', label: 'Вантажопідйомність', type: 'number' }
   ];
 
   addFields: FormField[] = [
+    { field: 'garageId', label: 'Гараж', type: 'select', options: [] },
     { field: 'licensePlate', label: 'Номерний знак', type: 'text' },
     { field: 'brand', label: 'Марка', type: 'text' },
     { field: 'model', label: 'Модель', type: 'text' },
@@ -66,14 +75,30 @@ export class TransportGridComponent {
       field: 'type',
       label: 'Тип',
       type: 'select',
-      options: Object.keys(TransportEnum).filter(k => isNaN(Number(k)))
+      options: Object.keys(TransportEnum)
+        .filter(k => isNaN(Number(k)))
+        .map(k => ({ key: k, value: k }))
     },
     { field: 'capacity', label: 'Місткість', type: 'number' },
     { field: 'loadCapacity', label: 'Вантажопідйомність', type: 'number' }
   ];
-
   constructor() {
     this.refresh();
+
+    this.garageService.getAll().subscribe({
+      next: res => {
+        this.garages = res;
+
+        const garageOptions = res.map(g => ({
+          key: g.id,
+          value: g.name ?? ''
+        }));
+
+        this.addFields.find(f => f.field === 'garageId')!.options = garageOptions;
+        this.updateFields.find(f => f.field === 'garageId')!.options = garageOptions;
+      },
+      error: err => console.error('Помилка при завантаженні гаражів', err)
+    });
   }
 
   openAddForm() {
@@ -104,7 +129,7 @@ export class TransportGridComponent {
 
     const command: UpdateTransportCommand = {
       id: this.selectedTransport.id,
-      garageId: this.selectedTransport.garageObject?.id ?? null,
+      garageId: updated.garageId ?? null,
       licensePlate: updated.licensePlate === "" ? null : updated.licensePlate,
       type: updated.type === "" ? null : updated.type,
       capacity: updated.capacity === "" ? null : Number(updated.capacity),

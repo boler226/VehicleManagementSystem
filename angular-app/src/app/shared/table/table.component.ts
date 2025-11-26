@@ -30,4 +30,8 @@ export class TableComponent {
   onDelete(row: any) {
     this.delete.emit(row);
   }
+
+  getValue(row: any, field: string): any {
+    return field.split('.').reduce((acc, part) => acc && acc[part], row);
+  }
 }

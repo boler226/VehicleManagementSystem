@@ -22,7 +22,7 @@ public class GetPassengerDistributionByRoutesQueryHandler(
                 return new RoutePassengerDistributionDto
                 {
                     RouteId = g.Key,
-                    RouteNumber = route?.RouterNumber ?? "Unknown",
+                    RouteNumber = route?.RouteNumber ?? "Unknown",
                     Description = route?.Description ?? string.Empty,
                     TotalPassengers = g.Sum(x => x.PassengersCarried)
                 };

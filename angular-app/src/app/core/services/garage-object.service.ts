@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {GarageObject} from '../models/queries/garage-object-query';
+import {GarageObject, GarageObjectStatisticsDto} from '../models/queries/garage-object-query';
 import {AddGarageObjectCommand, UpdateGarageObjectCommand} from '../models/commands/garage-object-commands';
 
 @Injectable({
@@ -13,6 +13,12 @@ export class GarageObjectService {
 
   getAll(): Observable<GarageObject[]> {
     return this.http.get<GarageObject[]>(this.apiUrl);
+  }
+
+  getGarageStatistics(): Observable<GarageObjectStatisticsDto[]> {
+    return this.http.get<GarageObjectStatisticsDto[]>(
+      `${this.apiUrl}/statistics`
+    );
   }
 
   add(command: AddGarageObjectCommand): Observable<string> {

@@ -6,35 +6,41 @@
       id="gridsDropdown"
       data-bs-toggle="dropdown"
       aria-expanded="false">
-      Grids
+      Сутності
     </button>
     <ul class="dropdown-menu" aria-labelledby="gridsDropdown">
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/transport']">Transport Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/transport']">Транспорти</a>
       </li>
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/driver']">Driver Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/mileage-record']">Пробіги</a>
       </li>
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/team']">Team Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/route']">Маршрути</a>
       </li>
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/person']">Person Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/driver']">Водії</a>
       </li>
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/technician']">Technician Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/team']">Команди</a>
       </li>
       <li>
-        <a class="dropdown-item" [routerLink]="['/grids/garage-object']">GarageObject Grid</a>
+        <a class="dropdown-item" [routerLink]="['/grids/person']">Персони</a>
+      </li>
+      <li>
+        <a class="dropdown-item" [routerLink]="['/grids/technician']">Техніки</a>
+      </li>
+      <li>
+        <a class="dropdown-item" [routerLink]="['/grids/garage-object']">Гаражі</a>
       </li>
       <li>
         <a class="dropdown-item" [routerLink]="['/grids/registration-requests']">
-          RegistrationRequests Grid <span class="text-bg-warning p-1">Admin</span>
+          Заявки на реєстрацію <span class="text-bg-warning p-1">Адмін</span>
         </a>
       </li>
       <li>
         <a class="dropdown-item" [routerLink]="['/grids/driver-transport']">
-          RegistrationRequests Grid <span class="text-bg-warning p-1">Admin</span> <span class="text-bg-success p-1">Operator</span>
+          Надати водію транспорт <span class="text-bg-warning p-1">Адмін</span> <span class="text-bg-success p-1">Оператор</span>
         </a>
       </li>
     </ul>
@@ -44,10 +50,10 @@
     class="btn btn-outline-secondary"
     type="button"
     [routerLink]="['/extra']">
-    Extra
+    Додаткове
   </button>
 
   <div class="ms-auto">
-    <button class="btn btn-primary" [routerLink]="['/login']">Login</button>
+    <button class="btn btn-primary" [routerLink]="['/login']">Логін</button>
   </div>
 </nav>

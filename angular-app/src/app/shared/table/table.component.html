@@ -13,8 +13,7 @@
       @for (row of data; track row.id) {
         <tr>
           @for (col of columns; track $index) {
-            <td>{{ row[col.field] }}</td>
-          }
+            <td>{{ getValue(row, col.field) }}</td>          }
 
           @if (canCrud) {
             @if (showCrud) {

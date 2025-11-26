@@ -46,11 +46,11 @@ public class MileageRecordsController(IMediator mediator) : Controller
         return Ok(result);
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "OperatorSD,AdminSD")]
-    public async Task<IActionResult> Delete(DeleteMileageRecordCommand command)
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new DeleteMileageRecordCommand(id));
         return Ok(result);
     }
 }

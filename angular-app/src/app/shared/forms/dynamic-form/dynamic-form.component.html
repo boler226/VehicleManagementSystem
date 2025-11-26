@@ -9,11 +9,9 @@
           class="form-control"
           [formControlName]="field.field" />
       } @else {
-        <select
-          class="form-select"
-          [formControlName]="field.field">
-          @for (opt of field.options; track $index) {
-            <option [value]="opt">{{ opt }}</option>
+        <select class="form-select" [formControlName]="field.field">
+          @for (opt of field.options; track opt.key) {
+            <option [value]="opt.key">{{ opt.value }}</option>
           }
         </select>
       }

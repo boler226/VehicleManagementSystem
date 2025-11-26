@@ -11,8 +11,8 @@ public class UpdateRouteCommandHandler(
         var route = await manager.Routes.GetByIdAsync(request.Id, cancellationToken)
                     ?? throw new NotFoundException(nameof(RouteEntity), request.Id);
 
-        if (!string.IsNullOrWhiteSpace(request.RouterNumber))
-            route.RouterNumber = request.RouterNumber;
+        if (!string.IsNullOrWhiteSpace(request.RouteNumber))
+            route.RouteNumber = request.RouteNumber;
 
         if (!string.IsNullOrWhiteSpace(request.Description))
             route.Description = request.Description;

@@ -22,7 +22,7 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     const group: any = {};
     this.fields.forEach(f => {
-      group[f.field] = [this.initialData[f.field] || '', f.validators || []];
+      group[f.field] = [this.initialData[f.field] || ''];
     });
     this.form = this.fb.group(group);
   }

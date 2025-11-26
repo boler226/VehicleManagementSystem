@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {Transport} from '../models/queries/transport-query';
+import {CargoTransportReportDto, Transport} from '../models/queries/transport-query';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AddTransportCommand, UpdateTransportCommand} from '../models/commands/transport-commands';
@@ -13,6 +13,19 @@ export class TransportService {
 
   getAll(): Observable<Transport[]> {
     return this.http.get<Transport[]>(`${this.apiUrl}`);
+  }
+
+  getCargoReport(id: string, fromDate: string, toDate: string): Observable<CargoTransportReportDto> {
+    return this.http.get<CargoTransportReportDto>(
+      `https://localhost:7011/api/Transports/cargo-report`,
+      {
+        params: {
+          Id: id,
+          FromDate: fromDate,
+          ToDate: toDate
+        }
+      }
+    );
   }
 
   add(command: AddTransportCommand): Observable<string> {

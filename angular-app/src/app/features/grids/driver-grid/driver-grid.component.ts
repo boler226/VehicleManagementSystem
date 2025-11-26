@@ -8,6 +8,7 @@ import {AddDriverCommand, UpdateDriverCommand} from '../../../core/models/comman
 import {DynamicFormComponent} from '../../../shared/forms/dynamic-form/dynamic-form.component';
 import {AsyncPipe} from '@angular/common';
 import {TableComponent} from '../../../shared/table/table.component';
+import {TeamService} from '../../../core/services/team.service';
 
 @Component({
   selector: 'app-driver-grid',
@@ -21,6 +22,7 @@ import {TableComponent} from '../../../shared/table/table.component';
 })
 export class DriverGridComponent {
   private driverService = inject(DriverService);
+  private teamService = inject(TeamService);
   private roleService = inject(RoleService);
   private cdr = inject(ChangeDetectorRef);
 
@@ -39,17 +41,29 @@ export class DriverGridComponent {
 
   updateFields: FormField[] = [
     { field: 'fullName', label: 'ПІБ', type: 'text' },
-    { field: 'teamId', label: 'Команда', type: 'text' }
+    { field: 'teamId', label: 'Команда', type: 'select', options: [] }
   ];
 
   addFields: FormField[] = [
     { field: 'fullName', label: 'ПІБ', type: 'text' },
-    { field: 'teamId', label: 'Команда', type: 'text' }
+    { field: 'teamId', label: 'Команда', type: 'select', options: [] }
   ];
 
   constructor() {
     this.refresh();
-  }
+
+    this.teamService.getAll().subscribe({
+      next: teams => {
+        const teamOptions = teams.map(t => ({
+          key: t.id,
+          value: t.name
+        }));
+
+        this.addFields.find(f => f.field === 'teamId')!.options = teamOptions;
+        this.updateFields.find(f => f.field === 'teamId')!.options = teamOptions;
+      },
+      error: err => console.error('Помилка при завантаженні команд', err)
+    });  }
 
   openAddForm() {
     this.showAddForm = true;

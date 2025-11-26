@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.Application.Commands.Transport.AddTransport;
 

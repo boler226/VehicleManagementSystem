@@ -9,7 +9,7 @@ public class AddRouteCommandHandler(
     public async Task<Guid> Handle(AddRouteCommand request, CancellationToken cancellationToken) {
         var route = new RouteEntity {
             Id = Guid.NewGuid(),
-            RouterNumber = request.RouterNumber,
+            RouteNumber = request.RouteNumber,
             Description = request.Description
            
         };

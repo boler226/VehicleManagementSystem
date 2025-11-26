@@ -1,0 +1,25 @@
+<form class="row g-3 mb-3" (ngSubmit)="onFormSave()">
+  <div class="col-md-4">
+    <label class="form-label">Автомобіль</label>
+    <select class="form-select" [(ngModel)]="selectedId" name="transport" required>
+      <option value="">-- Оберіть транспорт --</option>
+      @for (t of transports; track t.id) {
+        <option [value]="t.id">{{ t.licensePlate }} ({{ t.brand }} {{ t.model }})</option>
+      }
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Від дати</label>
+    <input type="date" class="form-control" [(ngModel)]="fromDate" name="fromDate" required>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">До дати</label>
+    <input type="date" class="form-control" [(ngModel)]="toDate" name="toDate" required>
+  </div>
+
+  <div class="col-md-2 d-flex align-items-end">
+    <button type="submit" class="btn btn-primary w-100">Отримати</button>
+  </div>
+</form>

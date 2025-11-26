@@ -36,3 +36,15 @@ export interface MileageRecordShort {
   id: string;
   mileage: number;
 }
+
+export interface CargoTransportReportDto {
+  id: string;
+  licensePlate: string;
+  brand: string;
+  model: string;
+  loadCapacity: number;
+  tripsCount: number;
+  totalCargoWeight: number;
+  fromDate: string;
+  toDate: string;
+}

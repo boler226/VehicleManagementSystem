@@ -1,11 +1,54 @@
 <div class="container mt-4">
   <div class="d-flex flex-wrap justify-content-center gap-4">
-    @for (i of [1,2,3,4,5,6,7,8,9,10]; track i) {
-      <a
-        class="btn btn-primary btn-lg extra-btn"
-        [routerLink]="['/extra', i]">
-        Запит {{ i }}
-      </a>
-    }
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/1']">
+      Одержати відомості про вантажоперевезення, виконані вказаним автомобілем протягом
+      вказаного періоду часу.
+    </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/2']">
+      Одержати відомості про наявність гаражів загалом та для кожної категорії транспорту.
+    </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/3']">
+      Одержати дані про автопарк підприємства, дані про пробіг автотранспорту певної категорії або
+      конкретної автомашини за вказаний день, місяць, рік.
+    </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/4']">
+      Одержати дані про кількість використаних для ремонту вказаних вузлів та агрегатів для
+      транспорту вказаної категорії.
+    </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/5']">
+      Одержати дані про розподіл пасажирського автотранспорту за маршрутами.
+    </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/6']">
+      Одержати інформацію про кількість ремонтів та їх вартість для автотранспорту певної категорії,
+      окремої марки автотранспорту або зазначеного автомобіля протягом вказаного періоду.     </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/7']">
+      Одержати інформацію про отриману та списану автотехніку протягом вказаного періоду часу.     </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/8']">
+      Одержати інформацію про роботи, виконані вказаним фахівцем протягом вказаного періоду
+      загалом та стосовно конкретного автомобіля.     </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/9']">
+      Одержати перелік та загальну кількість водіїв загалом та для вказаних моделей авто.     </a>
+    <a
+      class="btn btn-primary btn-lg extra-btn w-75"
+      [routerLink]="['/extra/10']">
+      Одержати список підлеглих вказаного бригадира, майста, керівника цеху.     </a>
   </div>
 </div>
