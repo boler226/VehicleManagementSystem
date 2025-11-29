@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h3>Звіт по пробігу транспорту</h3>
+
+  <form class="row g-3 mb-3" (ngSubmit)="loadRecords()">
+    <div class="col-md-3">
+      <label class="form-label">Дата</label>
+      <input type="date" class="form-control" [(ngModel)]="date" name="date" required>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Категорія</label>
+      <select class="form-select" [(ngModel)]="category" name="category">
+        <option value="">-- Всі --</option>
+        <option value="Taxi">Taxi</option>
+        <option value="PassengerCar">PassengerCar</option>
+        <option value="Bus">Bus</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label">Автомобіль</label>
+      <select class="form-select" [(ngModel)]="transportId" name="transportId">
+        <option value="">-- Всі --</option>
+        @for (t of transports; track t.id) {
+          <option [value]="t.id">{{ t.licensePlate }} ({{ t.brand }} {{ t.model }})</option>
+        }
+      </select>
+    </div>
+
+    <div class="col-md-3 d-flex align-items-end">
+      <button type="submit" class="btn btn-primary w-100">Отримати</button>
+    </div>
+  </form>
+
+  <app-table
+    [title]="'Результати'"
+    [columns]="columns"
+    [data]="records">
+  </app-table>
+</div>

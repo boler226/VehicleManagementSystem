@@ -3,9 +3,7 @@ import {DriverTransportService} from '../../../core/services/driver-transport.se
 import {DriverService} from '../../../core/services/driver.service';
 import {TransportService} from '../../../core/services/transport.service';
 import {BehaviorSubject, forkJoin, Observable} from 'rxjs';
-import {TableComponent} from '../../../shared/table/table.component';
 import {AsyncPipe} from '@angular/common';
-import {DynamicFormComponent} from '../../../shared/forms/dynamic-form/dynamic-form.component';
 import {Transport} from '../../../core/models/queries/transport-query';
 import {Driver} from '../../../core/models/queries/driver-query';
 

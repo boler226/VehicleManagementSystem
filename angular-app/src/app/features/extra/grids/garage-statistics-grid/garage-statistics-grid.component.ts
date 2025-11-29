@@ -4,6 +4,8 @@ import {GarageObjectStatisticsDto} from '../../../../core/models/queries/garage-
 import {GarageObjectService} from '../../../../core/services/garage-object.service';
 import {TableComponent} from '../../../../shared/table/table.component';
 import {KeyValuePipe} from '@angular/common';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Transport} from '../../../../core/models/queries/transport-query';
 
 @Component({
   selector: 'app-garage-statistics-grid',
@@ -26,7 +28,12 @@ export class GarageStatisticsGridComponent {
 
   constructor() {
     this.garageService.getGarageStatistics().subscribe({
-      next: res => this.garages = res,
+      next: res => {
+        this.garages = res.map(g => ({
+          ...g,
+          categories: Object.entries(g.vehiclesByCategory ?? {}).map(([key, value]) => ({ key, value }))
+        }));
+      },
       error: err => console.error('Помилка при отриманні статистики', err)
     });
   }

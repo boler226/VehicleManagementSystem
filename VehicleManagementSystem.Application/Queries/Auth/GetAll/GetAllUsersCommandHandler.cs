@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using VehicleManagementSystem.Application.DTOs.Auth;
-using VehicleManagementSystem.Domain.Entities.Identity;
 using VehicleManagementSystem.Domain.Interfaces;
 
 namespace VehicleManagementSystem.Application.Queries.Auth.GetAll;

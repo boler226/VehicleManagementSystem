@@ -13,9 +13,12 @@
       <div class="card mb-3 p-3">
         <h6>{{ g.name }}</h6>
         <p><strong>Всього:</strong> {{ g.totalVehicles }}</p>
-        <ul>
+        <ul class="list-group list-group-flush">
           @for (cat of (g.vehiclesByCategory | keyvalue); track cat.key) {
-            <li>{{ cat.key }}: {{ cat.value }}</li>
+            <li class="list-group-item  align-items-center">
+              {{ cat.key }}
+              <span class="badge bg-primary rounded-pill">{{ cat.value }}</span>
+            </li>
           }
         </ul>
       </div>

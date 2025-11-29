@@ -23,7 +23,7 @@ public class UpdateDriverCommandHandler(
         }
 
         await manager.Drivers.UpdateAsync(driver, cancellationToken);
-        
+        a
         return Unit.Value;
     }
 }

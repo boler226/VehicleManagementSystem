@@ -1,5 +1,6 @@
 ﻿namespace VehicleManagementSystem.Domain.Enums; 
-public enum TransportEnum {
+public enum TransportEnum
+{
     Bus,
     Taxi,
     Minibus,

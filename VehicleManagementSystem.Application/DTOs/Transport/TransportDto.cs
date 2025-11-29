@@ -2,7 +2,6 @@
 using VehicleManagementSystem.Application.DTOs.GarageObject;
 using VehicleManagementSystem.Application.DTOs.MileageRecord;
 using VehicleManagementSystem.Application.DTOs.RouteAssignment;
-using VehicleManagementSystem.Domain.Enums;
 
 namespace VehicleManagementSystem.Application.DTOs.Transport;
 

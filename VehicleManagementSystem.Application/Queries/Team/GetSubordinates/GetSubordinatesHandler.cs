@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
-using SharpCompress.Readers;
 using VehicleManagementSystem.Application.DTOs.Driver;
 using VehicleManagementSystem.Application.DTOs.Team;
 using VehicleManagementSystem.Application.DTOs.Technician;

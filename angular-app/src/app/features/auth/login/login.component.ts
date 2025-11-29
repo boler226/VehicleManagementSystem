@@ -37,11 +37,11 @@ export class LoginComponent {
       },
       error: (err) => {
         if (err.status === 404) {
-          this.error = 'Login endpoint not found. Please contact support.';
+          this.error = 'Ендпоінт для входу не знайдено. Зверніться до служби підтримки';
         } else if (err.status === 401) {
-          this.error = 'Invalid email or password.';
+          this.error = 'Невірний email або пароль.';
         } else {
-          this.error = 'Unexpected error occurred.';
+          this.error = 'Сталася непередбачена помилка.';
         }
       }
     });

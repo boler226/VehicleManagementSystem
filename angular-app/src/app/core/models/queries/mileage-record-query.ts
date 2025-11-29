@@ -8,4 +8,13 @@ export interface MileageRecord {
 export interface TransportShort {
   id: string;
   licensePlate: string;
+  brand: string;
+  model: string;
+  type: string;
+}
+
+export interface GetMileageRecordByDate {
+  date: string;
+  category?: string | null;
+  transportId?: string | null;
 }

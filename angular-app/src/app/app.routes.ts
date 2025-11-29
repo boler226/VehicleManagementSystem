@@ -18,11 +18,20 @@ import {
 } from './features/extra/grids/garage-statistics-grid/garage-statistics-grid.component';
 import {MileageRecordsGridComponent} from './features/grids/mileage-records-grid/mileage-records-grid.component';
 import {RouteGridComponent} from './features/grids/route-grid/route-grid.component';
+import {authorizedGuard} from './core/guards/authorized-guard-guard';
+import {
+  MileageRecordsByDateGridComponent
+} from './features/extra/grids/mileage-records-grid/mileage-records-grid.component';
+import {TransportRepairsGridComponent} from './features/grids/transport-repairs-grid/transport-repairs-grid.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'extra', component: ExtraComponent },
+  {
+    path: 'extra',
+    component: ExtraComponent,
+    canActivate: [adminGuard || operatorGuard || authorizedGuard]
+  },
   {
     path: 'extra/1',
     component: CargoReportGridComponent
@@ -31,12 +40,17 @@ export const routes: Routes = [
     path: 'extra/2',
     component: GarageStatisticsGridComponent
   },
+  {
+    path: 'extra/3',
+    component: MileageRecordsByDateGridComponent
+  },
   { path: 'grids/transport', component: TransportGridComponent },
   { path: 'grids/mileage-record', component: MileageRecordsGridComponent },
   { path: 'grids/route', component: RouteGridComponent },
   { path: 'grids/driver', component: DriverGridComponent },
   { path: 'grids/team', component: TeamGridComponent },
   { path: 'grids/person', component: PersonGridComponent },
+  { path: 'grids/transport-repair', component: TransportRepairsGridComponent },
   { path: 'grids/technician', component: TechnicianGridComponent },
   { path: 'grids/garage-object', component: GarageObjectGridComponent },
   {

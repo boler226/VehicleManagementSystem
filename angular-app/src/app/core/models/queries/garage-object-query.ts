@@ -1,3 +1,5 @@
+import {TransportEnum} from '../enums/transport-enum';
+
 export interface GarageObject {
   id: string;
   name: string | null;
@@ -14,5 +16,5 @@ export interface GarageObjectStatisticsDto {
   id: string;
   name: string;
   totalVehicles: number;
-  vehiclesByCategory: { [key: string]: number };
+  vehiclesByCategory: Record<string, number>;
 }

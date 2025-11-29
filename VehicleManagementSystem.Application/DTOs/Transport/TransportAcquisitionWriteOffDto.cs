@@ -9,7 +9,7 @@ public class TransportAcquisitionWriteOffDto
     public string Model { get; set; } = null!;
     public TransportEnum Type { get; set; }
 
-    public DateTime? AcquisitionDate { get; set; }   // дата отримання
+    public DateTime? AcquisitionDate { get; set; }
     public bool IsWrittenOff { get; set; }
-    public DateTime? WriteOffDate { get; set; }     // дата списання
+    public DateTime? WriteOffDate { get; set; }
 }
